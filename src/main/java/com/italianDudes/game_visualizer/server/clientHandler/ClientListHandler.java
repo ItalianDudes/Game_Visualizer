@@ -52,7 +52,7 @@ public final class ClientListHandler {
         return false;
     }
     public static int removeDisconnectedClients() {
-        List<Client> newClientList = new ArrayList<>();
+        List<Client> newClientList = new ArrayList<>();;
         int removedClients = 0;
 
         for (Client client : clientList) {
