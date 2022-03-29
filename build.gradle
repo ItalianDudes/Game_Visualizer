@@ -19,3 +19,17 @@ jar {
         attributes "Main-Class" : "com.italianDudes.game_visualizer.App"
     }
 }
+
+task runClient(type: Exec) {
+    dependsOn jar
+    group = "Execution"
+    description = "Run the mainClass from the output jar in classpath with ExecTask"
+    commandLine "java", "-jar", jar.archiveFile.get()
+}
+
+task runServer(type: Exec) {
+    dependsOn jar
+    group = "Execution"
+    description = "Run the mainClass from the output jar in classpath with ExecTask"
+    commandLine "java", "-jar", jar.archiveFile.get(), "-server"
+}
