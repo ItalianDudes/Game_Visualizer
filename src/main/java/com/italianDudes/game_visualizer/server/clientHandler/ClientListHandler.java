@@ -3,7 +3,6 @@ package com.italianDudes.game_visualizer.server.clientHandler;
 import com.italianDudes.game_visualizer.common.Defs;
 import com.italianDudes.game_visualizer.common.StringHandler;
 import com.italianDudes.game_visualizer.server.classes.Client;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
