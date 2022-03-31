@@ -1,15 +1,20 @@
 package com.italianDudes.game_visualizer.common;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Credential implements Serializable {
 
     //Attributes
     private final String username;
-    private final String password;
+    private final char[] password;
 
     //Builders
     public Credential(String username, String password){
+        this.username = username;
+        this.password = password.toCharArray();
+    }
+    public Credential(String username, char[] password){
         this.username = username;
         this.password = password;
     }
@@ -19,7 +24,7 @@ public class Credential implements Serializable {
         return username;
     }
 
-    public String getPassword(){
+    public char[] getPassword(){
         return password;
     }
 
@@ -28,6 +33,10 @@ public class Credential implements Serializable {
         if(!(o instanceof Credential))
             return false;
         Credential credential = (Credential) o;
-        return credential.username.equals(this.password) && credential.password.equals(this.password);
+        return credential.username.equals(this.username) && this.passwordCharArrayToString().equals(credential.passwordCharArrayToString());
+    }
+
+    private String passwordCharArrayToString(){
+        return Arrays.toString(this.password);
     }
 }

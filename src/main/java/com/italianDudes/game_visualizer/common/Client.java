@@ -1,6 +1,4 @@
-package com.italianDudes.game_visualizer.server.classes;
-
-import com.italianDudes.game_visualizer.common.Credential;
+package com.italianDudes.game_visualizer.common;
 
 import java.net.Socket;
 
