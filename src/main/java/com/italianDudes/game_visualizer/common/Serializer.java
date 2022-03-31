@@ -105,7 +105,13 @@ public final class Serializer {
 
     //Private Definitions: Output
     private static void writeInt(Peer peer, int integerNumber, boolean advancedLog) throws ValidatingStreamException, OutputStreamWriteException, SpecializedStreamInstancingException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -124,7 +130,13 @@ public final class Serializer {
         }
     }
     private static void writeLong(Peer peer, long longNumber, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -143,7 +155,13 @@ public final class Serializer {
         }
     }
     private static void writeFloat(Peer peer, float floatNumber, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -162,7 +180,13 @@ public final class Serializer {
         }
     }
     private static void writeDouble(Peer peer, double doubleNumber, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -181,7 +205,13 @@ public final class Serializer {
         }
     }
     private static void writeBoolean(Peer peer, boolean state, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -200,7 +230,13 @@ public final class Serializer {
         }
     }
     private static void writeString(Peer peer, String str, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataOutputStream outStream;
         try {
             outStream = new DataOutputStream(peer.getPeerSocket().getOutputStream());
@@ -223,7 +259,13 @@ public final class Serializer {
     private static void writeObject(Peer peer, Object obj, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException, NotSerializableException {
         if(!(obj instanceof Serializable))
             throw new NotSerializableException(obj.getClass().getCanonicalName());
-        checkOutputStreamValidity(peer,advancedLog);
+        try {
+            checkOutputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         ObjectOutputStream outStream;
         try {
             outStream = new ObjectOutputStream(peer.getPeerSocket().getOutputStream());
@@ -244,7 +286,13 @@ public final class Serializer {
 
     //Private Definitions: Input
     private static int readInt(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -264,7 +312,13 @@ public final class Serializer {
         return integerNumber;
     }
     private static long readLong(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -284,7 +338,13 @@ public final class Serializer {
         return longNumber;
     }
     private static float readFloat(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -304,7 +364,13 @@ public final class Serializer {
         return floatNumber;
     }
     private static double readDouble(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -324,7 +390,13 @@ public final class Serializer {
         return doubleNumber;
     }
     private static boolean readBoolean(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -344,7 +416,13 @@ public final class Serializer {
         return state;
     }
     private static String readString(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         DataInputStream inStream;
         try {
             inStream = new DataInputStream(peer.getPeerSocket().getInputStream());
@@ -372,7 +450,13 @@ public final class Serializer {
         }
     }
     private static Object readObject(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException, ClassNotFoundException {
-        checkInputStreamValidity(peer,advancedLog);
+        try {
+            checkInputStreamValidity(peer, advancedLog);
+        }catch (NullPeerException e){
+            if(advancedLog)
+                e.printStackTrace();
+            throw e;
+        }
         ObjectInputStream inStream;
         try {
             inStream = new ObjectInputStream(peer.getPeerSocket().getInputStream());
