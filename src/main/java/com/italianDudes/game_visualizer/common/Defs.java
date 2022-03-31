@@ -9,6 +9,10 @@ public final class Defs {
     //Starting Arguments
     public static final String ARGUMENTS_START_AS_SERVER = "-server";
 
+    //PATHS
+    public static final String PATH_RESOURCES = "src/main/resources/";
+    public static final String PATH_APP_ICON = PATH_RESOURCES+"icon.png";
+
     //General Data Comunication
     public static final String PROTOCOL_KEEP_ALIVE = "keepAlive";
     public static final String I_AM_ALIVE = "imAlive";
