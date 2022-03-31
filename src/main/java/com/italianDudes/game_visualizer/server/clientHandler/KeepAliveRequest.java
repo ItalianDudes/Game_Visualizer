@@ -1,17 +1,17 @@
 package com.italianDudes.game_visualizer.server.clientHandler;
 
-import com.italianDudes.game_visualizer.common.StringHandler;
-import com.italianDudes.game_visualizer.common.Client;
+import com.italianDudes.game_visualizer.common.Serializer;
+import com.italianDudes.game_visualizer.common.Peer;
 
 import java.io.IOException;
 
 public class KeepAliveRequest implements Runnable{
 
     public String actualKeepAlive;
-    private final Client client;
+    private final Peer client;
 
     //Builders
-    public KeepAliveRequest(Client client){
+    public KeepAliveRequest(Peer client){
         this.client = client;
         actualKeepAlive = null;
     }
@@ -20,7 +20,7 @@ public class KeepAliveRequest implements Runnable{
     @Override
     public void run() {
         try {
-            actualKeepAlive = StringHandler.receiveString(client.getClientSocket().getInputStream());
+            actualKeepAlive = Serializer.receiveString(client);
         }catch (IOException ignored){}
     }
 }

@@ -10,7 +10,7 @@ public abstract class Sheet implements Serializable {
     private final Credential userCredential;
 
     //Constructors
-    protected Sheet(Credential userCredential){
+    public Sheet(Credential userCredential){
         this.userCredential = userCredential;
     }
 

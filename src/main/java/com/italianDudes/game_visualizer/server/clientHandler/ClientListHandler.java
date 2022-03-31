@@ -1,8 +1,8 @@
 package com.italianDudes.game_visualizer.server.clientHandler;
 
 import com.italianDudes.game_visualizer.common.Defs;
-import com.italianDudes.game_visualizer.common.StringHandler;
-import com.italianDudes.game_visualizer.common.Client;
+import com.italianDudes.game_visualizer.common.Serializer;
+import com.italianDudes.game_visualizer.common.Peer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,27 +16,27 @@ public final class ClientListHandler {
     }
 
     //List
-    private static List<Client> clientList;
+    private static List<Peer> clientList;
 
     //Methods
-    public static void initList(List<Client> initClientList){
+    public static void initList(List<Peer> initClientList){
         clientList = initClientList;
     }
     public static void clearList() {
-        for(Client client : clientList){
-            if(!client.getClientSocket().isClosed()){
+        for(Peer client : clientList){
+            if(!client.getPeerSocket().isClosed()){
                 try {
-                    client.getClientSocket().close();
+                    client.getPeerSocket().close();
                 }catch (IOException ignored){}
             }
         }
         clientList.clear();
     }
-    private static boolean isAlive(Client client) {
+    private static boolean isAlive(Peer client) {
         if(client==null)
             return false;
         try {
-            StringHandler.sendString(client.getClientSocket().getOutputStream(), Defs.PROTOCOL_KEEP_ALIVE);
+            Serializer.sendString(client, Defs.PROTOCOL_KEEP_ALIVE);
             KeepAliveRequest keepAliveRequest = new KeepAliveRequest(client);
             Thread keepAliveRequestThread = new Thread(keepAliveRequest);
             keepAliveRequestThread.start();
@@ -51,10 +51,10 @@ public final class ClientListHandler {
         return false;
     }
     public static int removeDisconnectedClients() {
-        List<Client> newClientList = new ArrayList<>();
+        List<Peer> newClientList = new ArrayList<>();
         int removedClients = 0;
 
-        for (Client client : clientList) {
+        for (Peer client : clientList) {
             if (isAlive(client)) {
                 newClientList.add(client);
             }else {
@@ -66,26 +66,26 @@ public final class ClientListHandler {
 
         return removedClients;
     }
-    public static void removeClient(Client client) throws IOException{
+    public static void removeClient(Peer client) throws IOException{
 
         for(int i=0;i<clientList.size();i++){
             if(clientList.get(i).equals(client)){
-                clientList.get(i).getClientSocket().close();
+                clientList.get(i).getPeerSocket().close();
                 clientList.set(i,null);
                 break;
             }
         }
     }
     public static void printClientList(){
-        for (Client client : clientList) System.out.println(client);
+        for (Peer client : clientList) System.out.println(client);
     }
     public static boolean isEmpty(){
         return clientList.isEmpty();
     }
-    public static void addClient(Client client){
+    public static void addClient(Peer client){
         clientList.add(client);
     }
-    public static Client getClient(int index){
+    public static Peer getClient(int index){
         return clientList.get(index);
     }
     public static int size(){
