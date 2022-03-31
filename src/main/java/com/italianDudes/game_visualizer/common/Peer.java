@@ -1,8 +1,9 @@
 package com.italianDudes.game_visualizer.common;
 
+import java.io.Serializable;
 import java.net.Socket;
 
-public class Peer {
+public class Peer implements Serializable {
 
     //Attributes
     private final Socket peerSocket;

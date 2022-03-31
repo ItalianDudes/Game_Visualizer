@@ -52,10 +52,10 @@ public final class Serializer {
     public static void sendString(Peer peer, String str, boolean advancedLog) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException {
         writeString(peer,str,advancedLog);
     }
-    public static void sendObject(Peer peer, Object obj) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException {
+    public static void sendObject(Peer peer, Object obj) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException, NotSerializableException {
         writeObject(peer,obj,false);
     }
-    public static void sendObject(Peer peer, Object obj, boolean advancedLog) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException {
+    public static void sendObject(Peer peer, Object obj, boolean advancedLog) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException, NotSerializableException {
         writeObject(peer,obj,advancedLog);
     }
 
@@ -199,7 +199,7 @@ public final class Serializer {
             throw new OutputStreamWriteException(e);
         }
     }
-    public static void writeString(Peer peer, String str, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
+    private static void writeString(Peer peer, String str, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
         checkOutputStreamValidity(peer,advancedLog);
         DataOutputStream outStream;
         try {
@@ -220,7 +220,9 @@ public final class Serializer {
             throw new OutputStreamWriteException(e);
         }
     }
-    private static void writeObject(Peer peer, Object obj, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException {
+    private static void writeObject(Peer peer, Object obj, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, OutputStreamWriteException, NotSerializableException {
+        if(!(obj instanceof Serializable))
+            throw new NotSerializableException(obj.getClass().getCanonicalName());
         checkOutputStreamValidity(peer,advancedLog);
         ObjectOutputStream outStream;
         try {
@@ -341,7 +343,7 @@ public final class Serializer {
         }
         return state;
     }
-    public static String readString(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
+    private static String readString(Peer peer, boolean advancedLog) throws ValidatingStreamException, SpecializedStreamInstancingException, InputStreamReadException {
         checkInputStreamValidity(peer,advancedLog);
         DataInputStream inStream;
         try {
