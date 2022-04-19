@@ -1,5 +1,6 @@
 package com.italianDudes.game_visualizer.common;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,33 @@ public final class StringHandler {
 
     private StringHandler(){
         throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
+
+    @Deprecated
+    public static void sendString(OutputStream out, String str) throws IOException {
+
+        byte[] byteStr = str.getBytes();
+        DataOutputStream dataOut = new DataOutputStream(out);
+
+        dataOut.writeInt(byteStr.length);
+        dataOut.write(byteStr);
+        dataOut.flush();
+        out.flush();
+    }
+
+    @Deprecated
+    public static String receiveString(InputStream in) throws IOException{
+
+        DataInputStream dataIn = new DataInputStream(in);
+
+        int length = dataIn.readInt();
+
+        if(length>0){
+            byte[] byteStr = new byte[length];
+            dataIn.readFully(byteStr,0,byteStr.length);
+            return new String(byteStr);
+        }
+        return null;
     }
 
     public static int getOccurrencesFromString(String str, char car){

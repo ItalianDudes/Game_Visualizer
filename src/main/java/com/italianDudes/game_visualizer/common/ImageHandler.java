@@ -25,6 +25,7 @@ public final class ImageHandler {
 
     }
 
+    @Deprecated
     public static void sendImage(OutputStream out, String imagePath, final int DIM_BUFFER) throws IOException {
 
         FileInputStream in = new FileInputStream(imagePath);
@@ -40,6 +41,7 @@ public final class ImageHandler {
 
     }
 
+    @Deprecated
     public static void sendImage(OutputStream out, String imagePath) throws IOException {
 
         FileInputStream in = new FileInputStream(imagePath);
@@ -56,6 +58,7 @@ public final class ImageHandler {
         in.close();
     }
 
+    @Deprecated
     public static void sendImage(OutputStream out, File image) throws IOException {
 
         ByteArrayOutputStream outByte = new ByteArrayOutputStream();
@@ -68,6 +71,7 @@ public final class ImageHandler {
         out.write(outByte.toByteArray(),0,outByte.size());
     }
 
+    @Deprecated
     public static BufferedImage receiveImage(InputStream in) throws IOException {
 
         DataInputStream inStream = new DataInputStream(in);
