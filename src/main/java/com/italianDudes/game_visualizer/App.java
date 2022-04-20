@@ -11,8 +11,7 @@ import com.italianDudes.game_visualizer.server.Server;
 import java.io.IOException;
 
 public class App {
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
         if(args==null || args.length==0){
             Client.start();
         }else if(args[0].equals(Defs.ARGUMENTS_START_AS_SERVER)){
