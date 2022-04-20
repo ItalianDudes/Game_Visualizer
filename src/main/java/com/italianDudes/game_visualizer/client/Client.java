@@ -1,3 +1,7 @@
+/*
+ *  Copyright (C) 2022 ItalianDudes
+ *  Software distributed under the GPLv3 license
+ */
 package com.italianDudes.game_visualizer.client;
 
 import com.italianDudes.game_visualizer.common.Defs;
@@ -9,7 +13,7 @@ import java.io.IOException;
 
 public class Client {
     public static void start() throws IOException {
-        System.out.println("Hello World! I'm a client.");
+        /*System.out.println("Hello World! I'm a client.");
         JFrame frame = new JFrame("Game Visualizer: Client");
         frame.setIconImage(ImageIO.read(new File(Defs.PATH_APP_ICON)));
         JLabel label = new JLabel("Hello World! I'm a client.");
@@ -18,6 +22,8 @@ public class Client {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(true);*/
+        
+        
     }
 }
