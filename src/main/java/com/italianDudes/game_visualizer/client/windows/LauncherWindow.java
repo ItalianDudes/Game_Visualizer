@@ -9,6 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * LauncherWindow is the class used to build the graphical layout of the launcher window.
+ * It extends the javax.swing.JFrame class and implements the java.awt.event.ActionListener interface.
+ *
+ * @author SerSapessi
+ * @version 1.0
+ * @since 2022
+ */
 public class LauncherWindow extends JFrame implements ActionListener{
     
     //Panels
@@ -86,6 +94,13 @@ public class LauncherWindow extends JFrame implements ActionListener{
         setsDisplayedCB = new JComboBox<>();
         
         setPanel.add(setsDisplayedCB);
+
+        //Initialize JFrame
+        this.add(launcherPanel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBounds(0,0,500,600);
+        this.setTitle("Launcher Window");
+        this.setUndecorated(false);                         //#TODO: settare a true per disabilitare la titleBar di base
     }
     
     @Override
