@@ -18,12 +18,12 @@ import javax.swing.JPanel;
 public class GridPanel extends JPanel{
     private GridLayout layout;
     
-    public GridPanel(int col, int rows, int hgap, int vgap){
+    public GridPanel(int rows, int col, int hgap, int vgap){
         layout = new GridLayout(col, rows, hgap, vgap);
         
         this.setLayout(layout);
     }
-    public GridPanel(int col, int rows){
+    public GridPanel(int rows, int col){
         this(col,rows,0,0);
     }
     public GridPanel(){

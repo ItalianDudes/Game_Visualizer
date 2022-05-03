@@ -5,6 +5,8 @@
 package com.italianDudes.game_visualizer.client.windows;
 
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.*;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -67,33 +69,47 @@ public class LauncherWindow extends JFrame implements ActionListener{
         appPanel.setCenter(supportivePanel);
         
         optionPanel = new JPanel();
-        centralOptPanel = new GridPanel(1,2);
-        setPanel = new GridPanel(2,1);
+        centralOptPanel = new GridPanel(2,1);
+        setPanel = new GridPanel(1,2);
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
         
-        sideBarBPanel  = new GridPanel(1, 3);
+        sideBarBPanel  = new GridPanel(3, 1);
         centeringPanel = new JPanel();
-        accountPanel = new GridPanel(1, 2);
+        accountPanel = new GridPanel(2, 1);
         sideBarPanel.setNorth(sideBarBPanel);
         sideBarPanel.setCenter(centeringPanel);
         sideBarPanel.setSouth(accountPanel);
         
         //Buttons initialization
         launchB = new JButton("AVVIA");     //#TODO: usare la traduzione automatica
-        
+        cAccountB = new JButton("Change Account");
+        homeB = new JButton("Home");
+        extB = new JButton("Extensions");
+        setsB = new JButton("Sets");
+
         centralOptPanel.add(launchB);
         centralOptPanel.add(setPanel);
+        sideBarBPanel.add(homeB);
+        sideBarBPanel.add(extB);
+        sideBarBPanel.add(setsB);
         
         //Labels initialization
         setL = new JLabel("Sets:");         //#TODO: usare la traduzione automatica
+        accountL = new JLabel("Account: ");
         
         setPanel.add(setL);
         
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
-        
+
         setPanel.add(setsDisplayedCB);
+        //TextFields initialization
+        accountTF = new JTextField("<insert account>");
+
+        accountPanel.add(accountL);
+        accountPanel.add(accountTF);
+        accountPanel.add(cAccountB);
 
         //Initialize JFrame
         this.add(launcherPanel);
