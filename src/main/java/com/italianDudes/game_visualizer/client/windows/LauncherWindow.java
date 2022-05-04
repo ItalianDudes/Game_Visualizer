@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * LauncherWindow is the class used to build the graphical layout of the launcher window.
@@ -30,9 +31,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private GridPanel setPanel;
     private JPanel optionPanel;     //Option Panel
     private BorderPanel supportivePanel; //Supportive Panel
-    private BorderPanel centralLayoutPanel; //Central Layout Panel (It serves the purpose of putting down the layout for the Central Option Panel
-    private JPanel bufferPanel;     //It serves the purpose of filling out the blank spots inside the centralLayoutPanel, to make the layout works
-    
+
     private BorderPanel sideBarPanel;    //SideBar Panel
     private JPanel centeringPanel;  //Centering Panel
     
@@ -59,8 +58,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
     
     public LauncherWindow(){
         //Panels initialization
-        bufferPanel = new JPanel();
-
         launcherPanel = new BorderPanel();
         appPanel = new BorderPanel();
         cTitleBar = new JPanel();
@@ -77,17 +74,10 @@ public class LauncherWindow extends JFrame implements ActionListener{
         optionPanel = new JPanel();
         optionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
-        centralLayoutPanel = new BorderPanel();
-        centralLayoutPanel.setNorth(bufferPanel);
-        centralLayoutPanel.setEast(bufferPanel);
-        centralLayoutPanel.setSouth(bufferPanel);
-        centralLayoutPanel.setWest(bufferPanel);
-
         centralOptPanel = new GridPanel(2,1);
-        centralOptPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE,1));
+        centralOptPanel.setBorder(new EmptyBorder(250,200,250,200));
         setPanel = new GridPanel(1,2);
-        centralLayoutPanel.setCenter(centralOptPanel);
-        supportivePanel.setCenter(centralLayoutPanel);
+        supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
         
         sideBarBPanel  = new GridPanel(3, 1);
