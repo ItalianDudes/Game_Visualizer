@@ -4,6 +4,7 @@
  */
 package com.italianDudes.game_visualizer.client.windows;
 
+import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButton;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.*;
 
 import java.awt.*;
@@ -39,12 +40,12 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private BorderPanel launcherPanel;   //Launcher Panel
     
     //Buttons
-    private JButton launchB;        //Launch Button
-    private JButton optB;           //Option Button
-    private JButton cAccountB;      //Change Account Button
-    private JButton homeB;          //Home Button
-    private JButton extB;           //Extensions Button
-    private JButton setsB;          //Sets Button
+    private LauncherButton launchB;        //Launch Button
+    private LauncherButton optB;           //Option Button
+    private LauncherButton cAccountB;      //Change Account Button
+    private LauncherButton homeB;          //Home Button
+    private LauncherButton extB;           //Extensions Button
+    private LauncherButton setsB;          //Sets Button
     
     //Labels
     private JLabel accountL;        //Account Label
@@ -80,20 +81,20 @@ public class LauncherWindow extends JFrame implements ActionListener{
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
         
-        sideBarBPanel  = new GridPanel(3, 1);
+        sideBarBPanel  = new GridPanel(3, 1,0,10);
+        sideBarBPanel.setBorder(new EmptyBorder(50,20,300,10));
         centeringPanel = new JPanel();
         accountPanel = new GridPanel(2, 1);
         accountTextPanel = new GridPanel(1,2);
-        sideBarPanel.setNorth(sideBarBPanel);
-        sideBarPanel.setCenter(centeringPanel);
+        sideBarPanel.setCenter(sideBarBPanel);
         sideBarPanel.setSouth(accountPanel);
         
         //Buttons initialization
-        launchB = new JButton("AVVIA");     //#TODO: usare la traduzione automatica
-        cAccountB = new JButton("Change Account");
-        homeB = new JButton("Home");
-        extB = new JButton("Extensions");
-        setsB = new JButton("Sets");
+        launchB = new LauncherButton("AVVIA");     //#TODO: usare la traduzione automatica
+        cAccountB = new LauncherButton("Change Account");
+        homeB = new LauncherButton("Home");
+        extB = new LauncherButton("Extensions");
+        setsB = new LauncherButton("Sets");
 
         centralOptPanel.add(launchB);
         centralOptPanel.add(setPanel);
@@ -107,10 +108,12 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         setPanel.add(setL);
         accountTextPanel.add(accountL);
+
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
 
         setPanel.add(setsDisplayedCB);
+
         //TextFields initialization
         accountTF = new JTextField("<insert account>");
         accountTextPanel.add(accountTF);
