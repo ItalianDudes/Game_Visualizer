@@ -1,4 +1,5 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
 }
 
@@ -7,28 +8,30 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'commons-codec:commons-codec:1.15'
 }
 
-jar {
+shadowJar {
     manifest {
         attributes "Main-Class" : "com.italianDudes.game_visualizer.App"
     }
+    archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }
 
 task runClient(type: Exec) {
-    dependsOn jar
+    dependsOn shadowJar
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     commandLine "java", "-jar", jar.archiveFile.get()
 }
 
 task runServer(type: Exec) {
-    dependsOn jar
+    dependsOn shadowJar
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     commandLine "java", "-jar", jar.archiveFile.get(), "-server"
