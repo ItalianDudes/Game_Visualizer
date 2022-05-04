@@ -4,14 +4,34 @@
  */
 package com.italianDudes.game_visualizer.server;
 
+import com.italianDudes.game_visualizer.server.classes.ServerConfig;
+import com.italianDudes.game_visualizer.server.classes.ServerDefs;
+
+import java.io.File;
+
 public final class Server {
 
     public static void start() {
-        System.out.println("Hello World! I'm a server.");
 
-        String str = "Paolo";
-        String strHash = org.apache.commons.codec.digest.DigestUtils.sha256Hex(str);
+        File serverDirectory = new File(ServerDefs.SERVER_DIRECTORY_PATH);
 
-        System.out.println(strHash);
+        if(!serverDirectory.exists() || !serverDirectory.isDirectory()){
+            if(!serverDirectory.mkdir()){
+                System.exit(ServerDefs.CANNOT_CREATE_SERVER_DIRECTORY);
+            }
+        }
+
+        ServerConfig configs = ServerConfig.readConfig();
+
+        System.out.println(configs);
+
+        /*
+
+        ServerSocket serverSocket = ServerUtils.instantiateServerSocketToPort(configs.getPort());
+
+        Thread onlineServer = new Thread(new OnlineServer(serverSocket));
+
+        */
+
     }
 }

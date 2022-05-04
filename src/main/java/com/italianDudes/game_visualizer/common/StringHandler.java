@@ -26,6 +26,31 @@ public final class StringHandler {
         out.flush();
     }
 
+    public static String getStringBeforeChar(String str, char car){
+        if(str==null)
+            return null;
+        char[] charSequence = str.toCharArray();
+        for(int i=0;i<charSequence.length;i++){
+            if(charSequence[i]==car)
+                return str.substring(0,i);
+        }
+        return null;
+    }
+    public static String getStringAfterChar(String str, char car){
+        if(str==null)
+            return null;
+        char[] charSequence = str.toCharArray();
+        for(int i=0;i<charSequence.length;i++){
+            if(charSequence[i]==car)
+                try {
+                    return str.substring(i+1,charSequence.length);
+                }catch (IndexOutOfBoundsException exception){
+                    return null;
+                }
+        }
+        return null;
+    }
+
     @Deprecated
     public static String receiveString(InputStream in) throws IOException{
 
