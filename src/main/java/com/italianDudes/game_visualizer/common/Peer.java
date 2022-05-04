@@ -24,6 +24,10 @@ public class Peer implements Serializable {
         this.peerSocket = peerSocket;
         this.credential = credential;
     }
+    public Peer(Socket peerSocket){
+        this.peerSocket = peerSocket;
+        this.credential = null;
+    }
 
     //Methods
     public Socket getPeerSocket(){
