@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * LauncherWindow is the class used to build the graphical layout of the launcher window.
@@ -26,10 +27,11 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private GridPanel centralOptPanel;    //Central Option Panel
     private GridPanel sideBarBPanel;   //SideBar Button Panel
     private GridPanel accountPanel;    //Account Panel
+    private GridPanel accountTextPanel;
     private GridPanel setPanel;
     private JPanel optionPanel;     //Option Panel
     private BorderPanel supportivePanel; //Supportive Panel
-    
+
     private BorderPanel sideBarPanel;    //SideBar Panel
     private JPanel centeringPanel;  //Centering Panel
     
@@ -65,11 +67,15 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         sideBarPanel = new BorderPanel();
         supportivePanel = new BorderPanel();
+        //supportivePanel.setBorder(BorderFactory.createLineBorder(Color.RED,1));
         appPanel.setWest(sideBarPanel);
         appPanel.setCenter(supportivePanel);
         
         optionPanel = new JPanel();
+        optionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+
         centralOptPanel = new GridPanel(2,1);
+        centralOptPanel.setBorder(new EmptyBorder(250,200,250,200));
         setPanel = new GridPanel(1,2);
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
@@ -77,6 +83,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
         sideBarBPanel  = new GridPanel(3, 1);
         centeringPanel = new JPanel();
         accountPanel = new GridPanel(2, 1);
+        accountTextPanel = new GridPanel(1,2);
         sideBarPanel.setNorth(sideBarBPanel);
         sideBarPanel.setCenter(centeringPanel);
         sideBarPanel.setSouth(accountPanel);
@@ -99,22 +106,23 @@ public class LauncherWindow extends JFrame implements ActionListener{
         accountL = new JLabel("Account: ");
         
         setPanel.add(setL);
-        
+        accountTextPanel.add(accountL);
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
 
         setPanel.add(setsDisplayedCB);
         //TextFields initialization
         accountTF = new JTextField("<insert account>");
+        accountTextPanel.add(accountTF);
 
-        accountPanel.add(accountL);
-        accountPanel.add(accountTF);
+        accountPanel.add(accountTextPanel);
         accountPanel.add(cAccountB);
 
         //Initialize JFrame
         this.add(launcherPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0,0,500,600);
+        this.setBounds(0,0,900,600);
+        this.setResizable(false);
         this.setTitle("Launcher Window");
         this.setUndecorated(false);                         //#TODO: settare a true per disabilitare la titleBar di base
     }
