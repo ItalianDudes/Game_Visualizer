@@ -26,9 +26,12 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private GridPanel centralOptPanel;    //Central Option Panel
     private GridPanel sideBarBPanel;   //SideBar Button Panel
     private GridPanel accountPanel;    //Account Panel
+    private GridPanel accountTextPanel;
     private GridPanel setPanel;
     private JPanel optionPanel;     //Option Panel
     private BorderPanel supportivePanel; //Supportive Panel
+    private BorderPanel centralLayoutPanel; //Central Layout Panel (It serves the purpose of putting down the layout for the Central Option Panel
+    private JPanel bufferPanel;     //It serves the purpose of filling out the blank spots inside the centralLayoutPanel, to make the layout works
     
     private BorderPanel sideBarPanel;    //SideBar Panel
     private JPanel centeringPanel;  //Centering Panel
@@ -56,6 +59,8 @@ public class LauncherWindow extends JFrame implements ActionListener{
     
     public LauncherWindow(){
         //Panels initialization
+        bufferPanel = new JPanel();
+
         launcherPanel = new BorderPanel();
         appPanel = new BorderPanel();
         cTitleBar = new JPanel();
@@ -65,18 +70,30 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         sideBarPanel = new BorderPanel();
         supportivePanel = new BorderPanel();
+        //supportivePanel.setBorder(BorderFactory.createLineBorder(Color.RED,1));
         appPanel.setWest(sideBarPanel);
         appPanel.setCenter(supportivePanel);
         
         optionPanel = new JPanel();
+        optionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+
+        centralLayoutPanel = new BorderPanel();
+        centralLayoutPanel.setNorth(bufferPanel);
+        centralLayoutPanel.setEast(bufferPanel);
+        centralLayoutPanel.setSouth(bufferPanel);
+        centralLayoutPanel.setWest(bufferPanel);
+
         centralOptPanel = new GridPanel(2,1);
+        centralOptPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE,1));
         setPanel = new GridPanel(1,2);
-        supportivePanel.setCenter(centralOptPanel);
+        centralLayoutPanel.setCenter(centralOptPanel);
+        supportivePanel.setCenter(centralLayoutPanel);
         supportivePanel.setSouth(optionPanel);
         
         sideBarBPanel  = new GridPanel(3, 1);
         centeringPanel = new JPanel();
         accountPanel = new GridPanel(2, 1);
+        accountTextPanel = new GridPanel(1,2);
         sideBarPanel.setNorth(sideBarBPanel);
         sideBarPanel.setCenter(centeringPanel);
         sideBarPanel.setSouth(accountPanel);
@@ -99,22 +116,23 @@ public class LauncherWindow extends JFrame implements ActionListener{
         accountL = new JLabel("Account: ");
         
         setPanel.add(setL);
-        
+        accountTextPanel.add(accountL);
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
 
         setPanel.add(setsDisplayedCB);
         //TextFields initialization
         accountTF = new JTextField("<insert account>");
+        accountTextPanel.add(accountTF);
 
-        accountPanel.add(accountL);
-        accountPanel.add(accountTF);
+        accountPanel.add(accountTextPanel);
         accountPanel.add(cAccountB);
 
         //Initialize JFrame
         this.add(launcherPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0,0,500,600);
+        this.setBounds(0,0,900,600);
+        this.setResizable(false);
         this.setTitle("Launcher Window");
         this.setUndecorated(false);                         //#TODO: settare a true per disabilitare la titleBar di base
     }
