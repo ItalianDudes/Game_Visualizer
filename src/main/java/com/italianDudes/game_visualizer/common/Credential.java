@@ -4,6 +4,8 @@
  */
 package com.italianDudes.game_visualizer.common;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -11,7 +13,7 @@ public class Credential implements Serializable {
 
     //Attributes
     private final String username;
-    private final char[] password;
+    private final String password;
 
     //Builders
     public Credential(){
@@ -20,11 +22,11 @@ public class Credential implements Serializable {
     }
     public Credential(String username, String password){
         this.username = username;
-        this.password = password.toCharArray();
+        this.password = DigestUtils.sha512Hex(password);
     }
     public Credential(String username, char[] password){
         this.username = username;
-        this.password = password;
+        this.password = DigestUtils.sha512Hex(passwordCharArrayToString(password));
     }
 
     //Methods
@@ -32,7 +34,7 @@ public class Credential implements Serializable {
         return username;
     }
 
-    public char[] getPassword(){
+    public String getPassword(){
         return password;
     }
 
@@ -41,10 +43,10 @@ public class Credential implements Serializable {
         if(!(o instanceof Credential))
             return false;
         Credential credential = (Credential) o;
-        return credential.username.equals(this.username) && this.passwordCharArrayToString().equals(credential.passwordCharArrayToString());
+        return credential.username.equals(this.username) && this.password.equals(credential.password);
     }
 
-    private String passwordCharArrayToString(){
-        return Arrays.toString(this.password);
+    private String passwordCharArrayToString(char[] passwordCharArray){
+        return Arrays.toString(passwordCharArray);
     }
 }
