@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-io:commons-io:2.11.0'
 }
 
 shadowJar {

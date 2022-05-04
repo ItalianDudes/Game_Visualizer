@@ -4,9 +4,6 @@
  */
 package com.italianDudes.game_visualizer.server;
 
-import java.io.File;
-import java.io.IOException;
-
 public final class Server {
 
     public static void start() {
