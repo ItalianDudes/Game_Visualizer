@@ -1,4 +1,4 @@
-package com.italianDudes.game_visualizer.server.clientHandler;
+package com.italianDudes.game_visualizer.server.lists;
 
 import com.italianDudes.game_visualizer.common.Credential;
 import com.italianDudes.game_visualizer.server.classes.ServerDefs;
@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
+public class RegisteredUserListHandler {
 
     //Attributes
     private static ArrayList<Credential> registeredUserList;
@@ -17,9 +17,9 @@ public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
         registeredUserList = new ArrayList<>();
         readRegisteredUsers();
     }
-    private static void readRegisteredUsers(){ //TODO: test readRegisteredUsers()
+    public static void readRegisteredUsers(){
 
-        File registeredClientsFile = new File(ServerDefs.SERVER_REGISTERED_USERS_FILEPATH);
+        File registeredClientsFile = new File(ServerDefs.SERVER_REGISTERED_USERS_LIST_FILEPATH);
 
         if(registeredClientsFile.exists() && registeredClientsFile.isFile()) {
 
@@ -28,7 +28,7 @@ public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
                 inFile = new Scanner(registeredClientsFile);
             }catch (FileNotFoundException ioException){
                 inFile = null;
-                System.err.println("Cannot registered users list!");
+                System.err.println("Cannot read registered users list!");
                 System.exit(ServerDefs.CANNOT_READ_SERVER_REGISTERED_USERS_LIST_FILE);
             }
 
@@ -43,7 +43,7 @@ public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
             for(int i=0;i<numUsers;i++){
                 username = inFile.nextLine();
                 password = inFile.nextLine();
-                RegisteredUserListHandler.addUser(new Credential(username,password));
+                RegisteredUserListHandler.addUser(new Credential(username,password,false));
             }
 
             inFile.close();
@@ -74,24 +74,65 @@ public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
                 outFile.close();
             }catch (IOException closeIOException){
                 System.err.println("Cannot close registered users list file!");
-                System.exit(ServerDefs.CANNOT_CLOSE_SERVER_CONFIG_FILE);
+                System.exit(ServerDefs.CANNOT_CLOSE_SERVER_REGISTERED_USERS_LIST_FILE);
             }
         }
 
+    }
+    public static void writeRegisteredUsers(){
+
+        File registeredClientsFile = new File(ServerDefs.SERVER_REGISTERED_USERS_LIST_FILEPATH);
+
+        FileWriter outFile;
+        try {
+            outFile = new FileWriter(registeredClientsFile);
+        }catch (IOException ioException){
+            outFile = null;
+            System.err.println("Cannot write registered user list file!");
+            System.exit(ServerDefs.CANNOT_WRITE_SERVER_REGISTERED_USERS_LIST_FILE);
+        }
+        try {
+            outFile.write(registeredUserList.size()+"\n");
+            for (Credential credential : registeredUserList) {
+                outFile.write(credential.getUsername() + "\n");
+                outFile.write(credential.getPassword() + "\n");
+            }
+            outFile.flush();
+        }catch (IOException ioException){
+            System.err.println("Error during writing registered users list file!");
+            try {
+                outFile.close();
+            }catch (IOException closeIOException){
+                System.err.println("Error during writing registered users list file!");
+                System.exit(ServerDefs.CANNOT_CLOSE_SERVER_REGISTERED_USERS_LIST_FILE);
+            }
+            System.exit(ServerDefs.CANNOT_WRITE_SERVER_REGISTERED_USERS_LIST_FILE);
+        }
+
+    }
+    public static boolean unregisterUser(String username){
+        for(int i=0;i<registeredUserList.size();i++){
+            if(registeredUserList.get(i).getUsername().equals(username)){
+                registeredUserList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean registerUser(Credential user){
+        for (Credential credential : registeredUserList) {
+            if (credential.equals(user)) {
+                return false;
+            }
+        }
+        registeredUserList.add(user);
+        return true;
     }
     public static boolean contains(Credential credential){
         return registeredUserList.contains(credential);
     }
     public synchronized static void clearList(){
         registeredUserList.clear();
-    }
-    public static void removeUser(Credential user){
-        for(int i = 0; i< registeredUserList.size(); i++){
-            if(registeredUserList.get(i).equals(user)){
-                registeredUserList.set(i,null);
-                break;
-            }
-        }
     }
     public static void printClientList(){
         for (Credential user : registeredUserList) System.out.println(user);
@@ -106,8 +147,13 @@ public class RegisteredUserListHandler { //TODO: Test RegisteredUserListHandler
         }
         return false;
     }
-    public static void addUser(Credential user){
+    public static boolean addUser(Credential user){
+        for (Credential credential : registeredUserList) {
+            if (credential.equals(user))
+                return false;
+        }
         registeredUserList.add(user);
+        return true;
     }
     public static Credential getUser(int index){
         return registeredUserList.get(index);

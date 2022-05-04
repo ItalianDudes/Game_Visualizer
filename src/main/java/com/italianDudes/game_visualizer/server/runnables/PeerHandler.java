@@ -1,4 +1,4 @@
-package com.italianDudes.game_visualizer.server.runnable;
+package com.italianDudes.game_visualizer.server.runnables;
 
 import com.italianDudes.game_visualizer.common.Peer;
 
@@ -16,5 +16,6 @@ public class PeerHandler implements Runnable{
     @Override
     public void run() {
         //TODO: PeerHandler body (run)
+        System.out.println("Connection established with ["+peer.getPeerSocket().getInetAddress()+"]: Welcome \""+peer.getCredential().getUsername()+"\"!");
     }
 }

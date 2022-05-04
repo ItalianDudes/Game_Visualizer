@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 
 public class ServerUtils {
 
-    public static ServerSocket instantiateServerSocketToPort(int port){ //TODO: Test instantiateServerSocketToPort()
+    public static ServerSocket instantiateServerSocketToPort(int port){
 
         ServerSocket serverSocket;
         try {

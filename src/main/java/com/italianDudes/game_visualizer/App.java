@@ -6,6 +6,8 @@ package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.Client;
 import com.italianDudes.game_visualizer.common.Defs;
+import com.italianDudes.game_visualizer.common.messages.Message;
+import com.italianDudes.game_visualizer.server.ClientTest;
 import com.italianDudes.game_visualizer.server.Server;
 
 import java.io.IOException;
@@ -13,13 +15,16 @@ import java.io.IOException;
 public class App {
 
     private static boolean clientSide;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if(args==null || args.length==0){
             clientSide=true;
             Client.start();
-        }else if(args[0].equals(Defs.ARGUMENTS_START_AS_SERVER)){
-            clientSide=false;
+        }else if(args[0].equals(Defs.ARGUMENTS_START_AS_SERVER)) {
+            clientSide = false;
             Server.start();
+        }else if(args[0].equals("-clientTest")){
+        clientSide=true;
+        ClientTest.start();
         }else{
             System.err.println("Error, invalid arguments!");
         }

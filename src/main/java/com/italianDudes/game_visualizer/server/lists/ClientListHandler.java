@@ -2,7 +2,7 @@
  *  Copyright (C) 2022 ItalianDudes
  *  Software distributed under the GPLv3 license
  */
-package com.italianDudes.game_visualizer.server.clientHandler;
+package com.italianDudes.game_visualizer.server.lists;
 
 import com.italianDudes.game_visualizer.common.Peer;
 
@@ -19,8 +19,8 @@ public final class ClientListHandler { //TODO: rework of ClientListHandler
     private static ArrayList<Peer> clientList;
 
     //Methods
-    public static void initList(ArrayList<Peer> initClientList){
-        clientList = initClientList;
+    public static void initList(){
+        clientList = new ArrayList<>();
     }
     public synchronized static void clearList() {
         for(Peer client : clientList){

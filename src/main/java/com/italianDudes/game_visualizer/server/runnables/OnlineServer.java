@@ -1,7 +1,4 @@
-package com.italianDudes.game_visualizer.server.runnable;
-
-import com.italianDudes.game_visualizer.common.Peer;
-import com.italianDudes.game_visualizer.common.Serializer;
+package com.italianDudes.game_visualizer.server.runnables;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -35,6 +32,7 @@ public class OnlineServer implements Runnable{
 
                 try {
                     peerSocket = serverSocket.accept();
+                    System.out.println("Attempting connection by ["+peerSocket.getInetAddress()+"]");
                 } catch (SocketTimeoutException ignored){
                 } catch (IOException exception) {
                     System.err.println("An error has occurred, connection with peer is terminated");
