@@ -14,6 +14,10 @@ public class Credential implements Serializable {
     private final char[] password;
 
     //Builders
+    public Credential(){
+        this.username = null;
+        this.password = null;
+    }
     public Credential(String username, String password){
         this.username = username;
         this.password = password.toCharArray();

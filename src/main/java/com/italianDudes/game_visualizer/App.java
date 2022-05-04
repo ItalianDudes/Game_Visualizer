@@ -11,13 +11,24 @@ import com.italianDudes.game_visualizer.server.Server;
 import java.io.IOException;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+
+    private static boolean clientSide;
+    public static void main(String[] args) {
         if(args==null || args.length==0){
+            clientSide=true;
             Client.start();
         }else if(args[0].equals(Defs.ARGUMENTS_START_AS_SERVER)){
+            clientSide=false;
             Server.start();
         }else{
-            System.out.println("Error, invalid arguments!");
+            System.err.println("Error, invalid arguments!");
         }
+    }
+
+    public static boolean isClientSide(){
+        return clientSide;
+    }
+    public static boolean isServerSide(){
+        return !clientSide;
     }
 }
