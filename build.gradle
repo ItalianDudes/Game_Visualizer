@@ -36,7 +36,7 @@ task runClientTest(type: Exec) {
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     standardInput = System.in
-    commandLine "java", "-jar", jar.archiveFile.get(), "-server"
+    commandLine "java", "-jar", jar.archiveFile.get(), "-clientTest"
 }
 
 task runServer(type: Exec) {
@@ -44,5 +44,5 @@ task runServer(type: Exec) {
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     standardInput = System.in
-    commandLine "java", "-jar", jar.archiveFile.get(), "-clientTest"
+    commandLine "java", "-jar", jar.archiveFile.get(), "-server"
 }
