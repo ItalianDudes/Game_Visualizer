@@ -34,7 +34,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private BorderPanel supportivePanel; //Supportive Panel
 
     private BorderPanel sideBarPanel;    //SideBar Panel
-    private JPanel centeringPanel;  //Centering Panel
     
     private BorderPanel appPanel;        //App Panel
     private BorderPanel launcherPanel;   //Launcher Panel
@@ -83,7 +82,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         sideBarBPanel  = new GridPanel(3, 1,0,10);
         sideBarBPanel.setBorder(new EmptyBorder(50,20,300,10));
-        centeringPanel = new JPanel();
         accountPanel = new GridPanel(2, 1);
         accountTextPanel = new GridPanel(1,2);
         sideBarPanel.setCenter(sideBarBPanel);

@@ -6,7 +6,6 @@ package com.italianDudes.game_visualizer.client.GraphicsAPI.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import javax.swing.JPanel;
 
 /**
  * BorderPanel is a class that generically unites the border layout and a panel.
@@ -16,7 +15,7 @@ import javax.swing.JPanel;
  * @version 1.0
  * @since 2022
  */
-public class BorderPanel extends JPanel{
+public class BorderPanel extends Panel{
     private BorderLayout layout;
 
     /**

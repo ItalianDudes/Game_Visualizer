@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @version 1.0
  * @since 2022
  */
-public class GridPanel extends JPanel{
+public class GridPanel extends Panel{
     private GridLayout layout;
     
     public GridPanel(int rows, int col, int hgap, int vgap){

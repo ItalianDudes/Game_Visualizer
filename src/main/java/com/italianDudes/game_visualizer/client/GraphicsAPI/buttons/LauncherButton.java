@@ -2,7 +2,7 @@ package com.italianDudes.game_visualizer.client.GraphicsAPI.buttons;
 
 import javax.swing.*;
 
-public class LauncherButton extends JButton {
+public final class LauncherButton extends Button {
 
     public LauncherButton(String text){
         super(text);
