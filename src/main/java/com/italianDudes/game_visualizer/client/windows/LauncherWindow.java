@@ -40,7 +40,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
     
     //Buttons
     private LauncherButton launchB;        //Launch Button
-    private LauncherButton optB;           //Option Button
+    private LauncherButton optB;           //Option Button #TODO: da implementare con icona
     private LauncherButton cAccountB;      //Change Account Button
     private LauncherButton homeB;          //Home Button
     private LauncherButton extB;           //Extensions Button
