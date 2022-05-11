@@ -8,8 +8,7 @@ import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButto
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -21,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  * @version 1.0
  * @since 2022
  */
-public class LauncherWindow extends JFrame implements ActionListener{
+public class LauncherWindow extends JFrame implements ActionListener, ComponentListener{
     
     //Panels
     private JPanel cTitleBar;       //Custom Title Bar
@@ -119,6 +118,17 @@ public class LauncherWindow extends JFrame implements ActionListener{
         accountPanel.add(accountTextPanel);
         accountPanel.add(cAccountB);
 
+        //Sets background color
+        getContentPane().setBackground(Color.RED);
+
+        //Translucency initialization
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+
+        if(!gd.isWindowTranslucencySupported(GraphicsDevice.WindowTranslucency.TRANSLUCENT)){
+            System.err.println("Translucency is not supported!");
+        }
+
         //Initialize JFrame
         this.add(launcherPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,5 +142,26 @@ public class LauncherWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        System.out.println("Translucenza resize");
+        this.setOpacity(0.55f);
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        System.out.println("Translucenza movimento");
+        this.setOpacity(0.55f);
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
 }

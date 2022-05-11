@@ -137,6 +137,7 @@ public class Button extends JButton {
         //  Init Color
         super(text);
 
+        setBorderPainted(false);
         setColor(Color.WHITE);
         colorOver = new Color(179, 250, 160);
         colorClick = new Color(152, 184, 144);
@@ -170,6 +171,12 @@ public class Button extends JButton {
                 } else {
                     setBackground(color);
                 }
+                isDragged=false;
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                isDragged=true;
             }
         });
     }
@@ -183,6 +190,7 @@ public class Button extends JButton {
     }
 
     private boolean over;
+    private boolean isDragged;
     private Color color;
     private Color colorOver;
     private Color colorClick;
@@ -197,7 +205,7 @@ public class Button extends JButton {
         g2.setColor(borderColor);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         g2.setColor(getBackground());
-        //  Border set 2 Pix
+        //  Border set 2 Pix (Paint background)
         g2.fillRoundRect(2, 2, getWidth() - 4, getHeight() - 4, radius, radius);
         super.paintComponent(grphcs);
     }
