@@ -3,6 +3,7 @@ package com.italianDudes.game_visualizer.client;
 import com.italianDudes.game_visualizer.common.Defs;
 
 import java.io.*;
+import java.nio.file.AccessDeniedException;
 
 public class ClientInitializationTask {
     private static final String REGEX = ":";
@@ -15,7 +16,9 @@ public class ClientInitializationTask {
         File clientDirectory = new File(CLIENT_DIR);
 
         if(!clientDirectory.isDirectory() || !clientDirectory.exists()){
-            System.out.println(clientDirectory.mkdir());
+            if(!clientDirectory.mkdir()){
+                throw new AccessDeniedException(CLIENT_DIR,"Can't create directory","Insufficient permissions");
+            }
         }
 
         File optionsFile = new File(OPTIONS);
