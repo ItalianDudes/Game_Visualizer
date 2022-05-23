@@ -14,10 +14,10 @@ public final class Defs {
     public static final String ARGUMENTS_START_AS_SERVER = "-server";
 
     //PATHS
-    public static final String PATH_RESOURCES = "src/main/resources/";
+    public static final String PATH_RESOURCES = "src/main/resources/";  //#TODO: wrong path! Must be fixed
     public static final String PATH_APP_ICON = PATH_RESOURCES+"icon.png";
 
-    //General Data Comunication
+    //General Data Communication
     public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; //Expressed in milliseconds
     public static final String PROTOCOL_KEEP_ALIVE = "keepAlive";
     public static final String I_AM_ALIVE = "imAlive";

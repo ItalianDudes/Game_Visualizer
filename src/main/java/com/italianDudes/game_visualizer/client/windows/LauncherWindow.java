@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  * @version 1.0
  * @since 2022
  */
-public class LauncherWindow extends JFrame implements ActionListener, ComponentListener{
+public class LauncherWindow extends JFrame implements ActionListener{
     
     //Panels
     private JPanel cTitleBar;       //Custom Title Bar
@@ -140,28 +140,12 @@ public class LauncherWindow extends JFrame implements ActionListener, ComponentL
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        if(e.getSource() == extB){
+            System.out.println("Visibile");
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        System.out.println("Translucenza resize");
-        this.setOpacity(0.55f);
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        System.out.println("Translucenza movimento");
-        this.setOpacity(0.55f);
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
+            this.dispose();
+            ExtWindow extWindow = new ExtWindow();
+            extWindow.setVisible(true);
+        }
     }
 }
