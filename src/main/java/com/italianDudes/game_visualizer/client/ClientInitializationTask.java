@@ -5,26 +5,34 @@ import com.italianDudes.game_visualizer.common.Defs;
 import java.io.*;
 
 public class ClientInitializationTask {
-    private static final String regex = ":";
-    private static final String options= Defs.PATH_RESOURCES+"client/clientOptions.txt";
+    private static final String REGEX = ":";
+    private static final String CLIENT_DIR = Defs.PATH_RESOURCES+"client/";
+    private static final String OPTIONS = CLIENT_DIR +"clientOptions.txt";
     public static boolean isOpenedBackground=false;
 
     public static void initialize() throws IOException {
-        File optionsFile = new File(options);
 
-        if(optionsFile.exists()){
+        File clientDirectory = new File(CLIENT_DIR);
+
+        if(!clientDirectory.isDirectory() || !clientDirectory.exists()){
+            System.out.println(clientDirectory.mkdir());
+        }
+
+        File optionsFile = new File(OPTIONS);
+
+        if(optionsFile.exists() && optionsFile.isFile()){
             BufferedReader optionsBuffRd = new BufferedReader(new FileReader(optionsFile));
 
-            isOpenedBackground= Boolean.parseBoolean(optionsBuffRd.readLine().split(regex)[1].trim());
+            isOpenedBackground= Boolean.parseBoolean(optionsBuffRd.readLine().split(REGEX)[1].trim());
         }else{
-            if(optionsFile.createNewFile()){
                 BufferedWriter optionsBuffWr = new BufferedWriter(new FileWriter(optionsFile));
 
                 optionsBuffWr.write("#launcherOpenedBackground: "+isOpenedBackground);
-            }else{
-                System.err.println("Cannot correctly create the OptionsFile. It may already exists!");
-                throw new FileNotFoundException();
-            }
+
+                optionsBuffWr.flush();
+
+                optionsBuffWr.close();
         }
+
     }
 }

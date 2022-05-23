@@ -23,7 +23,7 @@ public class Client {
     public static void start() throws IOException {
         LauncherWindow lWindow = new LauncherWindow();
 
-        //ClientInitializationTask.initialize();
+        ClientInitializationTask.initialize();
         lWindow.setVisible(true);
     }
 }

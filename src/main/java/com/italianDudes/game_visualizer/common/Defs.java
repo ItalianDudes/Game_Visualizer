@@ -14,7 +14,7 @@ public final class Defs {
     public static final String ARGUMENTS_START_AS_SERVER = "-server";
 
     //PATHS
-    public static final String PATH_RESOURCES = "src/main/resources/";  //#TODO: wrong path! Must be fixed
+    public static final String PATH_RESOURCES = "src/main/resources/";
     public static final String PATH_APP_ICON = PATH_RESOURCES+"icon.png";
 
     //General Data Communication
