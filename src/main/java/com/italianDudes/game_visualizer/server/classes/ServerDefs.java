@@ -1,5 +1,7 @@
 package com.italianDudes.game_visualizer.server.classes;
 
+import com.italianDudes.game_visualizer.common.Defs;
+
 public class ServerDefs {
 
     //Server Config Field
@@ -9,7 +11,7 @@ public class ServerDefs {
     public static final int DEFAULT_SERVER_PORT = 45800;
 
     //PATHS
-    public static final String SERVER_DIRECTORY_PATH = "server/";
+    public static final String SERVER_DIRECTORY_PATH = Defs.PATH_RESOURCES+"server/";
     public static final String SERVER_REGISTERED_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"registeredUsersList.txt";
     public static final String SERVER_CONFIG_FILEPATH = SERVER_DIRECTORY_PATH+"config.cfg";
     public static final String SERVER_PENDING_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"pendingUsersList.txt";

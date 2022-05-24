@@ -40,6 +40,7 @@ public final class Server {
 
     public static void start() { //TODO: interrupt of all started server when called "stop" command
 
+        //TODO: Test register protocol
         initServer();
 
         ServerConfig configs = ServerConfig.readConfig();
@@ -65,6 +66,10 @@ public final class Server {
 
         System.out.print("Spegnimento del server in corso");
         System.out.flush();
+
+        PendingListHandler.writePendingUsers();
+        RegisteredUserListHandler.writeRegisteredUsers();
+
         while(onlineServer.isAlive()) {
             try {
                 TimeUnit.SECONDS.sleep(1);

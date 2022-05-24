@@ -70,11 +70,15 @@ public class LoginHandler implements Runnable{
                         buffer = null;
                     }
                     if (buffer instanceof Credential) {
-                        if (((Credential) buffer).getUsername() != null && ((Credential) buffer).getPassword() != null) {
-                            if(!RegisteredUserListHandler.containsUsername(((Credential) buffer).getUsername()) && !PendingListHandler.contains(((Credential) buffer).getUsername())) {
+                        Credential receivedCredential = (Credential) buffer;
+                        if (receivedCredential.getUsername() != null && receivedCredential.getPassword() != null) {
+                            if(!RegisteredUserListHandler.containsUsername(receivedCredential.getUsername()) && !PendingListHandler.contains(receivedCredential.getUsername())) {
+                                PendingListHandler.addUser(receivedCredential);
                                 try {
                                     Serializer.sendBoolean(peer, PendingListHandler.addUser((Credential) buffer));
                                 }catch (IOException ignored){}
+                                System.out.println("User \""+peer.getCredential().getUsername()+"\" added to PendingUserList");
+                                System.out.println("Connection with ["+peer.getPeerSocket().getInetAddress()+"] will be closed: successful register request");
                             }else{
                                 System.out.println("Connection refused to ["+peer.getPeerSocket().getInetAddress()+"]: user already registered or already in pending list");
                             }

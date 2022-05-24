@@ -17,6 +17,9 @@ public class ClientTest {
 
         Scanner scan = new Scanner(System.in);
 
+        System.out.println("Login [L] o Registrazione [R]: ");
+        char car = scan.nextLine().charAt(0);
+
         System.out.print("Inserisci username: ");
         String username = scan.nextLine();
         System.out.print("Inserisci password: ");
@@ -27,8 +30,15 @@ public class ClientTest {
 
         Peer peer = Peer.establishConnection("127.0.0.1",45800,credentials);
 
-        Serializer.sendInt(peer, Defs.PREAUTH_PROTOCOL_LOGIN);
-        Serializer.sendObject(peer,credentials);
+        if(car=='L') {
+            Serializer.sendInt(peer, Defs.PREAUTH_PROTOCOL_LOGIN);
+            Serializer.sendObject(peer, credentials);
+        }else{
+            Serializer.sendInt(peer, Defs.PREAUTH_PROTOCOL_REGISTER);
+            Serializer.sendObject(peer, credentials);
+            boolean esito = Serializer.receiveBoolean(peer);
+            System.out.println(esito);
+        }
         scan.nextLine();
         peer.getPeerSocket().close();
     }

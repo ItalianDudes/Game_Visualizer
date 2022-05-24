@@ -27,6 +27,7 @@ public class ServerConfig {
         if(!serverConfigFile.exists() || !serverConfigFile.isFile()){
 
             System.err.println("MISSING CONFIG FILE!");
+            System.err.flush();
 
             ServerConfig serverConfig = new ServerConfig();
             writeConfig(serverConfig);
@@ -34,7 +35,7 @@ public class ServerConfig {
 
         }else{
 
-            System.err.println("READING EXISTING CONFIG FILE!");
+            System.out.println("Reading existing config file...");
 
             Scanner inFile;
             try {
