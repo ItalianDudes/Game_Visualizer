@@ -10,6 +10,12 @@ import java.awt.event.ActionListener;
 
 public class ExtWindow extends JFrame implements ActionListener {
 
+    //Frame Dimensions bounds
+    private int width;
+    private int height;
+    private int x;
+    private int y;
+
     private BorderPanel appPanel;        //App Panel
     private BorderPanel launcherPanel;   //Launcher Panel
 
@@ -23,7 +29,12 @@ public class ExtWindow extends JFrame implements ActionListener {
     private LauncherButton extB;           //Extensions Button
     private LauncherButton setsB;          //Sets Button
 
-    public ExtWindow(){
+    public ExtWindow(int width, int height, int x, int y){
+        this.width=width;
+        this.height=height;
+        this.x=x;
+        this.y=y;
+
         //Panels initialization
         launcherPanel = new BorderPanel();
         appPanel = new BorderPanel();
@@ -41,7 +52,7 @@ public class ExtWindow extends JFrame implements ActionListener {
         //Initialize JFrame
         this.add(launcherPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0,0,900,600);
+        this.setBounds(x,y,width,height);
         this.setResizable(false);
         this.setTitle("Launcher Window");
         this.setUndecorated(false);

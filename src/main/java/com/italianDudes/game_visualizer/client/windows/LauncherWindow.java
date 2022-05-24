@@ -21,7 +21,13 @@ import javax.swing.border.EmptyBorder;
  * @since 2022
  */
 public class LauncherWindow extends JFrame implements ActionListener{
-    
+
+    //Frame Dimensions bounds
+    private int width;
+    private int height;
+    private int x;
+    private int y;
+
     //Panels
     private JPanel cTitleBar;       //Custom Title Bar
     private GridPanel centralOptPanel;    //Central Option Panel
@@ -54,8 +60,13 @@ public class LauncherWindow extends JFrame implements ActionListener{
     
     //Combo Boxes
     private JComboBox<String> setsDisplayedCB;  //Sets Displayed Combo Box
-    
-    public LauncherWindow(){
+
+    public LauncherWindow(int width, int height, int x, int y){
+        this.width=width;
+        this.height=height;
+        this.x=x;
+        this.y=y;
+
         //Panels initialization
         launcherPanel = new BorderPanel();
         appPanel = new BorderPanel();
@@ -66,7 +77,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         sideBarPanel = new BorderPanel();
         supportivePanel = new BorderPanel();
-        //supportivePanel.setBorder(BorderFactory.createLineBorder(Color.RED,1));
         appPanel.setWest(sideBarPanel);
         appPanel.setCenter(supportivePanel);
         
@@ -88,10 +98,15 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         //Buttons initialization
         launchB = new LauncherButton("AVVIA");     //#TODO: usare la traduzione automatica
+        launchB.addActionListener(this);
         cAccountB = new LauncherButton("Change Account");
+        cAccountB.addActionListener(this);
         homeB = new LauncherButton("Home");
+        homeB.addActionListener(this);
         extB = new LauncherButton("Extensions");
+        extB.addActionListener(this);
         setsB = new LauncherButton("Sets");
+        setsB.addActionListener(this);
 
         centralOptPanel.add(launchB);
         centralOptPanel.add(setPanel);
@@ -132,10 +147,10 @@ public class LauncherWindow extends JFrame implements ActionListener{
         //Initialize JFrame
         this.add(launcherPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(0,0,900,600);
+        this.setBounds(x,y,width,height);
         this.setResizable(false);
         this.setTitle("Launcher Window");
-        this.setUndecorated(false);                         //#TODO: settare a true per disabilitare la titleBar di base
+        this.setUndecorated(false);                         //#  TODO: settare a true per disabilitare la titleBar di base
     }
     
     @Override
@@ -144,7 +159,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
             System.out.println("Visibile");
 
             this.dispose();
-            ExtWindow extWindow = new ExtWindow();
+            ExtWindow extWindow = new ExtWindow(width, height, getX(), getY());
             extWindow.setVisible(true);
         }
     }

@@ -15,6 +15,8 @@ public final class Defs {
 
     //PATHS
     public static final String PATH_RESOURCES = "src/main/resources/";
+    public static final String OPTIONS = Defs.CLIENT_DIR +"clientOptions.txt";
+    public static final String CLIENT_DIR = Defs.PATH_RESOURCES+"client/";
     public static final String PATH_APP_ICON = PATH_RESOURCES+"icon.png";
 
     //General Data Communication
