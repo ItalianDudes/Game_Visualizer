@@ -24,25 +24,9 @@ shadowJar {
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }
 
-task runClient(type: Exec) {
+task buildAndRun(type: Exec) {
     dependsOn shadowJar
     group = "Execution"
     description = "Run the mainClass from the output jar in classpath with ExecTask"
     commandLine "java", "-jar", jar.archiveFile.get()
-}
-
-task runClientTest(type: Exec) {
-    dependsOn shadowJar
-    group = "Execution"
-    description = "Run the mainClass from the output jar in classpath with ExecTask"
-    standardInput = System.in
-    commandLine "java", "-jar", jar.archiveFile.get(), "-clientTest"
-}
-
-task runServer(type: Exec) {
-    dependsOn shadowJar
-    group = "Execution"
-    description = "Run the mainClass from the output jar in classpath with ExecTask"
-    standardInput = System.in
-    commandLine "java", "-jar", jar.archiveFile.get(), "-server"
 }

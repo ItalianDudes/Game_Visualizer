@@ -2,18 +2,17 @@ package com.italianDudes.game_visualizer.server.classes;
 
 import com.italianDudes.game_visualizer.common.Defs;
 
-public class ServerDefs {
+@SuppressWarnings("unused")
+public final class ServerDefs {
 
-    //Server Config Field
-    public static final String CONFIG_PORT_FIELD = "port";
-
-    //Default Server Configs
-    public static final int DEFAULT_SERVER_PORT = 45800;
+    //Constructors
+    private ServerDefs(){
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
 
     //PATHS
     public static final String SERVER_DIRECTORY_PATH = Defs.PATH_RESOURCES+"server/";
     public static final String SERVER_REGISTERED_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"registeredUsersList.txt";
-    public static final String SERVER_CONFIG_FILEPATH = SERVER_DIRECTORY_PATH+"config.cfg";
     public static final String SERVER_PENDING_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"pendingUsersList.txt";
 
     //Return Values
@@ -21,9 +20,6 @@ public class ServerDefs {
     public static final int PORT_OUT_OF_BOUNDS = 2451; //Provided port in configs out of bounds (0-65535)
     public static final int IMPOSSIBLE_TO_BIND_PORT = 4154; //Cannot bind port, probably because is already bound
     public static final int CANNOT_CREATE_SERVER_DIRECTORY = 2111;
-    public static final int CANNOT_WRITE_SERVER_CONFIG_FILE = 2155;
-    public static final int CANNOT_CLOSE_SERVER_CONFIG_FILE = 2151;
-    public static final int CANNOT_READ_SERVER_CONFIG_FILE = 2123;
     public static final int CANNOT_READ_SERVER_REGISTERED_USERS_LIST_FILE = 4514;
     public static final int CANNOT_WRITE_SERVER_REGISTERED_USERS_LIST_FILE = 4516;
     public static final int CANNOT_CLOSE_SERVER_REGISTERED_USERS_LIST_FILE = 4515;

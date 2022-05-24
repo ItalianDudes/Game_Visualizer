@@ -9,14 +9,16 @@ import com.italianDudes.game_visualizer.common.Peer;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public final class ClientListHandler {
 
+    //Attributes
+    private static ArrayList<Peer> clientList;
+
+    //Constructors
     private ClientListHandler(){
         throw new UnsupportedOperationException("Can't instantiate this class!");
     }
-
-    //List
-    private static ArrayList<Peer> clientList;
 
     //Methods
     public static void initList(){

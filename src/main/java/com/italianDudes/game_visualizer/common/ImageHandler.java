@@ -84,9 +84,9 @@ public final class ImageHandler {
 
         byte[] bytes = new byte[size];
 
-        int readedBytes = in.read(bytes,0,size);
+        int bytesRead = in.read(bytes,0,size);
 
-        if ( readedBytes == size ) {
+        if ( bytesRead == size ) {
             return ImageIO.read(new ByteArrayInputStream(bytes));
         } else {
             return null;

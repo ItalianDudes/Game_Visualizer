@@ -7,10 +7,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RegisteredUserListHandler {
+@SuppressWarnings("unused")
+public final class RegisteredUserListHandler {
 
     //Attributes
     private static ArrayList<Credential> registeredUserList;
+
+    //Constructors
+    private RegisteredUserListHandler() {
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
 
     //Methods
     public static void initList(){

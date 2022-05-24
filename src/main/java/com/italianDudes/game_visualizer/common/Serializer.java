@@ -557,15 +557,15 @@ public final class Serializer {
         }
         byte[] bytes = new byte[size];
 
-        int readedBytes;
+        int bytesRead;
         try {
-            readedBytes = peer.getPeerSocket().getInputStream().read(bytes, 0, size);
+            bytesRead = peer.getPeerSocket().getInputStream().read(bytes, 0, size);
         }catch (IOException e){
             if(advancedLog)
                 e.printStackTrace();
             throw new InputStreamReadException(e);
         }
-        if (readedBytes == size) {
+        if (bytesRead == size) {
             try {
                 return ImageIO.read(new ByteArrayInputStream(bytes));
             }catch (IOException e){

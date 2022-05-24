@@ -19,7 +19,7 @@ public class ClientInitializationTask {
             }
         }
 
-        File optionsFile = new File(Defs.OPTIONS);
+        File optionsFile = new File(Defs.CLIENT_OPTIONS);
 
         if(optionsFile.exists() && optionsFile.isFile()){
             BufferedReader optionsBuffRd = new BufferedReader(new FileReader(optionsFile));

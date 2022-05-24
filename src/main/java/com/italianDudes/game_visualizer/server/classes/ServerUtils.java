@@ -1,12 +1,23 @@
 package com.italianDudes.game_visualizer.server.classes;
 
 import com.italianDudes.game_visualizer.common.Defs;
+import com.italianDudes.game_visualizer.server.lists.ClientListHandler;
+import com.italianDudes.game_visualizer.server.lists.PendingListHandler;
+import com.italianDudes.game_visualizer.server.lists.RegisteredUserListHandler;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class ServerUtils {
+@SuppressWarnings("unused")
+public final class ServerUtils {
 
+    //Constructors
+    private ServerUtils(){
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
+
+    //Methods
     public static ServerSocket instantiateServerSocketToPort(int port){
 
         ServerSocket serverSocket;
@@ -22,5 +33,26 @@ public class ServerUtils {
             System.exit(ServerDefs.IMPOSSIBLE_TO_BIND_PORT);
         }
         return null;
+    }
+
+    private static void initServer(){
+
+        File serverDirectory = new File(ServerDefs.SERVER_DIRECTORY_PATH);
+
+        if(!serverDirectory.exists() || !serverDirectory.isDirectory()){
+            if(!serverDirectory.mkdir()){
+                System.exit(ServerDefs.CANNOT_CREATE_SERVER_DIRECTORY);
+            }
+        }
+
+        ClientListHandler.initList();
+        PendingListHandler.initList();
+        PendingListHandler.readPendingUsers();
+        RegisteredUserListHandler.initList();
+        RegisteredUserListHandler.readRegisteredUsers();
+    }
+    private static void saveServerLists(){
+        PendingListHandler.writePendingUsers();
+        RegisteredUserListHandler.writeRegisteredUsers();
     }
 }

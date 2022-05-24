@@ -4,16 +4,13 @@
  */
 package com.italianDudes.game_visualizer.common;
 
-import com.italianDudes.game_visualizer.App;
-import com.italianDudes.game_visualizer.common.messages.Message;
-import com.italianDudes.game_visualizer.common.messages.loginStatus.SuccessfulLogin;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
+@SuppressWarnings("unused")
 public class Peer implements Serializable {
 
     //Attributes

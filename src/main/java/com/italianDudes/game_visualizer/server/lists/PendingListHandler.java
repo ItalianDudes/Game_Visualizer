@@ -10,10 +10,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PendingListHandler { //TODO: need to be tested
+@SuppressWarnings("unused")
+public final class PendingListHandler {
 
     //Attributes
     private static ArrayList<Credential> pendingUserList;
+
+    //Constructors
+    private PendingListHandler(){
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
 
     //Methods
     public static void initList(){
@@ -148,13 +154,13 @@ public class PendingListHandler { //TODO: need to be tested
         }
         return false;
     }
+
     public static boolean addUser(Credential user){
         for (Credential credential : pendingUserList) {
             if (credential.equals(user))
                 return false;
         }
-        pendingUserList.add(user);
-        return true;
+        return pendingUserList.add(user);
     }
     public static Credential getUser(int index){
         return pendingUserList.get(index);

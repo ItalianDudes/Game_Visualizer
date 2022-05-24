@@ -5,36 +5,17 @@
 package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.Client;
-import com.italianDudes.game_visualizer.common.Defs;
-import com.italianDudes.game_visualizer.common.messages.Message;
-import com.italianDudes.game_visualizer.server.ClientTest;
-import com.italianDudes.game_visualizer.server.Server;
-
 import java.io.IOException;
 
-public class App {
+public final class App {
 
-    private static boolean clientSide;
+    //Constructors
+    private App(){
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
 
+    //Methods
     public static void main(String[] args) throws IOException {
-        if(args==null || args.length==0){
-            clientSide=true;
-            Client.start();
-        }else if(args[0].equals(Defs.ARGUMENTS_START_AS_SERVER)) {
-            clientSide = false;
-            Server.start();
-        }else if(args[0].equals("-clientTest")){
-        clientSide=true;
-        ClientTest.start();
-        }else{
-            System.err.println("Error, invalid arguments!");
-        }
-    }
-
-    public static boolean isClientSide(){
-        return clientSide;
-    }
-    public static boolean isServerSide(){
-        return !clientSide;
+        Client.start();
     }
 }

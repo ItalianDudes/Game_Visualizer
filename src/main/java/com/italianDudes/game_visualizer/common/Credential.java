@@ -4,12 +4,11 @@
  */
 package com.italianDudes.game_visualizer.common;
 
-import com.italianDudes.game_visualizer.App;
 import org.apache.commons.codec.digest.DigestUtils;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class Credential implements Serializable {
 
     //Attributes
