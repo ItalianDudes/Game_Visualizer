@@ -9,7 +9,7 @@ import com.italianDudes.game_visualizer.common.Peer;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class ClientListHandler { //TODO: rework of ClientListHandler
+public final class ClientListHandler {
 
     private ClientListHandler(){
         throw new UnsupportedOperationException("Can't instantiate this class!");
@@ -32,15 +32,16 @@ public final class ClientListHandler { //TODO: rework of ClientListHandler
         }
         clientList.clear();
     }
-    public synchronized static void removeClient(Peer client) throws IOException{
+    public synchronized static boolean removeClient(Peer client) throws IOException{
 
         for(int i=0;i<clientList.size();i++){
             if(clientList.get(i).equals(client)){
                 clientList.get(i).getPeerSocket().close();
                 clientList.set(i,null);
-                break;
+                return true;
             }
         }
+        return false;
     }
     public static void printClientList(){
         for (Peer client : clientList) System.out.println(client);
@@ -48,8 +49,11 @@ public final class ClientListHandler { //TODO: rework of ClientListHandler
     public static boolean isEmpty(){
         return clientList.isEmpty();
     }
-    public synchronized static void addClient(Peer client){
-        clientList.add(client);
+    public synchronized static boolean addClient(Peer client){
+        if(!clientList.contains(client))
+            return clientList.add(client);
+        else
+            return false;
     }
     public static Peer getClient(int index){
         return clientList.get(index);

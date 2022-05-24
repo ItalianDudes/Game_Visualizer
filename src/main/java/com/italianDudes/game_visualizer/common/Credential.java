@@ -53,12 +53,11 @@ public class Credential implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Credential))
+        if (!(o instanceof Credential))
             return false;
         Credential credential = (Credential) o;
         return credential.username.equals(this.username) && this.password.equals(credential.password);
     }
-
     @Override
     public String toString(){
         return "Username: "+username+"\nPassword: "+password;

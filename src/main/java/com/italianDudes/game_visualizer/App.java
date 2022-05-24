@@ -15,6 +15,7 @@ import java.io.IOException;
 public class App {
 
     private static boolean clientSide;
+
     public static void main(String[] args) throws IOException {
         if(args==null || args.length==0){
             clientSide=true;

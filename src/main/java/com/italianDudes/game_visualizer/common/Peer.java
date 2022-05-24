@@ -58,4 +58,15 @@ public class Peer implements Serializable {
         Peer client = (Peer) o;
         return client.getCredential().equals(this.getCredential()) && client.peerSocket.equals(this.peerSocket);
     }
+
+    @Override
+    public String toString(){
+        String username = credential!=null?credential.getUsername():null;
+        return "Username: "+username+"\nSocket: ["+peerSocket.getInetAddress()+":"+peerSocket.getPort()+"]";
+    }
+
+    public String peerConnectionToString(){
+        return peerSocket.getInetAddress()+":"+peerSocket.getPort();
+    }
+
 }

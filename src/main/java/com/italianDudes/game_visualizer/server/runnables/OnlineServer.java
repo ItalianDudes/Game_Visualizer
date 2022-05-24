@@ -32,7 +32,7 @@ public class OnlineServer implements Runnable{
 
                 try {
                     peerSocket = serverSocket.accept();
-                    System.out.println("Attempting connection by ["+peerSocket.getInetAddress()+"]");
+                    System.out.println("Attempting connection by ["+peerSocket.getInetAddress()+":"+peerSocket.getPort()+"]");
                 } catch (SocketTimeoutException ignored){
                 } catch (IOException exception) {
                     System.err.println("An error has occurred, connection with peer is terminated");

@@ -15,7 +15,7 @@ public class PeerHandler implements Runnable{
     //Methods
     @Override
     public void run() {
-        //TODO: PeerHandler body (run)
-        System.out.println("Connection established with ["+peer.getPeerSocket().getInetAddress()+"]: Welcome \""+peer.getCredential().getUsername()+"\"!");
+        System.out.println("Connection established with ["+peer.peerConnectionToString()+"]: Welcome \""+peer.getCredential().getUsername()+"\"!");
+        //TODO: invoke extension server program main method
     }
 }
