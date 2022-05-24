@@ -19,7 +19,7 @@ dependencies {
 
 shadowJar {
     manifest {
-        attributes "Main-Class" : "com.italianDudes.game_visualizer.App"
+        attributes "Main-Class" : "com.italianDudes.game_visualizer.Game_Visualizer"
     }
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }

@@ -7,10 +7,10 @@ package com.italianDudes.game_visualizer;
 import com.italianDudes.game_visualizer.client.Client;
 import java.io.IOException;
 
-public final class App {
+public final class Game_Visualizer {
 
     //Constructors
-    private App(){
+    private Game_Visualizer(){
         throw new UnsupportedOperationException("Can't instantiate this class!");
     }
 
