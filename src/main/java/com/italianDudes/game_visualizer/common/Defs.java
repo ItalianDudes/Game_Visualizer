@@ -17,6 +17,8 @@ public final class Defs {
     public static final String CLIENT_OPTIONS = Defs.CLIENT_DIR +"clientOptions.txt";
     public static final String CLIENT_DIR = Defs.PATH_RESOURCES+"client/";
     public static final String PATH_APP_ICON = PATH_RESOURCES+"icon.png";
+    public static final String LOG_DIR = "logs/";
+    public static final String LOG_LATEST_FILE = LOG_DIR+"latest.log";
 
     //General Data Communication
     public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; //Expressed in milliseconds
