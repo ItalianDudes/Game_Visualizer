@@ -11,7 +11,7 @@ public final class ServerDefs {
     }
 
     //PATHS
-    public static final String SERVER_DIRECTORY_PATH = Defs.PATH_RESOURCES+"server/";
+    public static final String SERVER_DIRECTORY_PATH = Defs.BUILT_IN_PATH_RESOURCES +"server/";
     public static final String SERVER_REGISTERED_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"registeredUsersList.txt";
     public static final String SERVER_PENDING_USERS_LIST_FILEPATH = SERVER_DIRECTORY_PATH+"pendingUsersList.txt";
 

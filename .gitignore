@@ -4,3 +4,5 @@
 /build
 /src/main/resources/client
 /logs
+/client
+/extensions
