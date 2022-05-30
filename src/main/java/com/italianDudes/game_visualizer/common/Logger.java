@@ -33,12 +33,12 @@ public final class Logger {
         //Methods
         @Override
         public void run() {
-            System.out.println(message);
+            System.out.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] "+message);
             System.out.flush();
             try {
                 writeMessageIntoLogFile(message);
             }catch (IOException e){
-                System.err.println("Can't write log message into log file!");
+                System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't write log message into log file!");
             }
         }
     }
@@ -51,7 +51,7 @@ public final class Logger {
         File logDirectory = new File(Defs.LOG_DIR);
         if(!logDirectory.exists() || !logDirectory.isDirectory()) {
             if (!logDirectory.mkdir()) {
-                System.err.println("Can't create log directory!");
+                System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't create log directory!");
                 return false;
             }
         }
@@ -76,16 +76,16 @@ public final class Logger {
         try {
             result = queue.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         }catch (InterruptedException e){
-            System.err.println("An error has occurred during queue termination");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] An error has occurred during queue termination");
             result = false;
         }
         if(!result) {
-            System.err.println("An error has occurred during queue termination");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] An error has occurred during queue termination");
         }
         try{
             logger.close();
         }catch (IOException e){
-            System.err.println("Can't close log file!");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't close log file!");
             throw e;
         }
         return saveLog();
@@ -94,7 +94,7 @@ public final class Logger {
         try {
             logger = new BufferedWriter(new FileWriter(latestLogFilePointer));
         }catch (IOException e){
-            System.err.println("Can't initialize logger!");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't initialize logger!");
             throw e;
         }
         return true;
@@ -103,13 +103,13 @@ public final class Logger {
         try {
             logger.append("[").append(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).append("] ").append(message).append("\n");
         }catch (IOException e){
-            System.err.println("Can't write message into log file!");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't write message into log file!");
             throw e;
         }
         try {
             logger.flush();
         }catch (IOException e){
-            System.err.println("Can't flush log file!");
+            System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't flush log file!");
             throw e;
         }
     }
