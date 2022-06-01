@@ -21,13 +21,10 @@ public class ExtWindow extends JFrame implements ActionListener {
 
     private JPanel cTitleBar;       //Custom Title Bar
 
-    private BorderPanel sideBarPanel;    //SideBar Panel
-
-    private GridPanel sideBarBPanel;   //SideBar Button Panel
+    private GridPanel sideBarPanel;    //SideBar Panel
 
     private LauncherButton homeB;          //Home Button
     private LauncherButton extB;           //Extensions Button
-    private LauncherButton setsB;          //Sets Button
 
     public ExtWindow(int width, int height, int x, int y){
         this.width=width;
@@ -43,11 +40,8 @@ public class ExtWindow extends JFrame implements ActionListener {
         launcherPanel.setNorth(cTitleBar);
         launcherPanel.setCenter(appPanel);
 
-        sideBarPanel = new BorderPanel();
+        sideBarPanel = new GridPanel(2,1);
         appPanel.setWest(sideBarPanel);
-
-        sideBarBPanel = new GridPanel(3,1,0,10);
-        sideBarPanel.setCenter(sideBarBPanel);
 
         //Initialize JFrame
         this.add(launcherPanel);

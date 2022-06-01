@@ -31,14 +31,13 @@ public class LauncherWindow extends JFrame implements ActionListener{
     //Panels
     private JPanel cTitleBar;       //Custom Title Bar
     private GridPanel centralOptPanel;    //Central Option Panel
-    private GridPanel sideBarBPanel;   //SideBar Button Panel
     private GridPanel accountPanel;    //Account Panel
     private GridPanel accountTextPanel;
     private GridPanel setPanel;
     private JPanel optionPanel;     //Option Panel
     private BorderPanel supportivePanel; //Supportive Panel
 
-    private BorderPanel sideBarPanel;    //SideBar Panel
+    private GridPanel sideBarPanel;    //SideBar Panel
     
     private BorderPanel appPanel;        //App Panel
     private BorderPanel launcherPanel;   //Launcher Panel
@@ -49,7 +48,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
     private LauncherButton cAccountB;      //Change Account Button
     private LauncherButton homeB;          //Home Button
     private LauncherButton extB;           //Extensions Button
-    private LauncherButton setsB;          //Sets Button
     
     //Labels
     private JLabel accountL;        //Account Label
@@ -74,8 +72,8 @@ public class LauncherWindow extends JFrame implements ActionListener{
         
         launcherPanel.setNorth(cTitleBar);
         launcherPanel.setCenter(appPanel);
-        
-        sideBarPanel = new BorderPanel();
+
+        sideBarPanel = new GridPanel(2,1);
         supportivePanel = new BorderPanel();
         appPanel.setWest(sideBarPanel);
         appPanel.setCenter(supportivePanel);
@@ -88,13 +86,9 @@ public class LauncherWindow extends JFrame implements ActionListener{
         setPanel = new GridPanel(1,2);
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
-        
-        sideBarBPanel  = new GridPanel(3, 1,0,10);
-        sideBarBPanel.setBorder(new EmptyBorder(50,20,300,10));
+
         accountPanel = new GridPanel(2, 1);
         accountTextPanel = new GridPanel(1,2);
-        sideBarPanel.setCenter(sideBarBPanel);
-        sideBarPanel.setSouth(accountPanel);
         
         //Buttons initialization
         launchB = new LauncherButton("AVVIA");     //#TODO: usare la traduzione automatica
@@ -105,14 +99,11 @@ public class LauncherWindow extends JFrame implements ActionListener{
         homeB.addActionListener(this);
         extB = new LauncherButton("Extensions");
         extB.addActionListener(this);
-        setsB = new LauncherButton("Sets");
-        setsB.addActionListener(this);
 
         centralOptPanel.add(launchB);
         centralOptPanel.add(setPanel);
-        sideBarBPanel.add(homeB);
-        sideBarBPanel.add(extB);
-        sideBarBPanel.add(setsB);
+        sideBarPanel.add(homeB);
+        sideBarPanel.add(extB);
         
         //Labels initialization
         setL = new JLabel("Sets:");         //#TODO: usare la traduzione automatica
