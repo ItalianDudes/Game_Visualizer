@@ -73,7 +73,8 @@ public class LauncherWindow extends JFrame implements ActionListener{
         launcherPanel.setNorth(cTitleBar);
         launcherPanel.setCenter(appPanel);
 
-        sideBarPanel = new GridPanel(2,1);
+        sideBarPanel = new GridPanel(2,1,0,10);
+        sideBarPanel.setBorder(new EmptyBorder(200,10,200,10));
         supportivePanel = new BorderPanel();
         appPanel.setWest(sideBarPanel);
         appPanel.setCenter(supportivePanel);
