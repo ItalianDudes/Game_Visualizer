@@ -46,6 +46,11 @@ public final class Logger {
         }
     }
 
+    //Constructors
+    private Logger(){
+        throw new UnsupportedOperationException("Can't instantiate this class!");
+    }
+
     //Methods
     public static boolean initLogger() throws IOException {
         return initLogger(MAX_QUEUE_SIZE);
