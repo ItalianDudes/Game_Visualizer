@@ -5,6 +5,7 @@
 package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.Client;
+
 import java.io.IOException;
 
 public final class Game_Visualizer {

@@ -5,8 +5,8 @@
 package com.italianDudes.game_visualizer.common;
 
 import com.italianDudes.game_visualizer.common.exceptions.NullPeerException;
-import com.italianDudes.game_visualizer.common.exceptions.socketIO.*;
 import com.italianDudes.game_visualizer.common.exceptions.fileIO.ImageNotFoundException;
+import com.italianDudes.game_visualizer.common.exceptions.socketIO.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

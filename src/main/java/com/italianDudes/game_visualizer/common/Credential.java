@@ -5,6 +5,7 @@
 package com.italianDudes.game_visualizer.common;
 
 import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.Serializable;
 import java.util.Arrays;
 

@@ -5,12 +5,14 @@
 package com.italianDudes.game_visualizer.client.windows;
 
 import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButton;
-import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.*;
+import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.BorderPanel;
+import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.GridPanel;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * LauncherWindow is the class used to build the graphical layout of the launcher window.

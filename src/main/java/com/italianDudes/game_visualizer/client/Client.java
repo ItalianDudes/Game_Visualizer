@@ -5,11 +5,7 @@
 package com.italianDudes.game_visualizer.client;
 
 import com.italianDudes.game_visualizer.client.windows.LauncherWindow;
-import com.italianDudes.game_visualizer.common.Defs;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 
 /**

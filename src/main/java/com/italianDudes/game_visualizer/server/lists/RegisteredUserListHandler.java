@@ -3,7 +3,10 @@ package com.italianDudes.game_visualizer.server.lists;
 import com.italianDudes.game_visualizer.common.Credential;
 import com.italianDudes.game_visualizer.server.classes.ServerDefs;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 

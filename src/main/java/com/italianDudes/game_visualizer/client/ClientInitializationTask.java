@@ -1,9 +1,9 @@
 package com.italianDudes.game_visualizer.client;
 
+import com.italianDudes.game_visualizer.common.Defs;
+
 import java.io.*;
 import java.nio.file.AccessDeniedException;
-
-import com.italianDudes.game_visualizer.common.Defs;
 
 public class ClientInitializationTask {
     private static final String REGEX = ":";

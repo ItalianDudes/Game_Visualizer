@@ -4,8 +4,7 @@
  */
 package com.italianDudes.game_visualizer.client.GraphicsAPI.panels;
 
-import java.awt.GridLayout;
-import javax.swing.JPanel;
+import java.awt.*;
 
 /**
  * GridPanel is a class that generically unites the grid layout and a panel.
