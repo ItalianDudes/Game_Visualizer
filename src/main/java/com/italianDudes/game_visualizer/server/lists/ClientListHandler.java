@@ -9,7 +9,7 @@ import com.italianDudes.game_visualizer.common.Peer;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"UnusedReturnValue","unused"})
 public final class ClientListHandler {
 
     //Attributes

@@ -1,6 +1,6 @@
 package com.italianDudes.game_visualizer.server.classes;
 
-import com.italianDudes.game_visualizer.common.Defs;
+import com.italianDudes.game_visualizer.Game_Visualizer;
 import com.italianDudes.game_visualizer.server.lists.ClientListHandler;
 import com.italianDudes.game_visualizer.server.lists.PendingListHandler;
 import com.italianDudes.game_visualizer.server.lists.RegisteredUserListHandler;
@@ -23,7 +23,7 @@ public final class ServerUtils {
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(port);
-            serverSocket.setSoTimeout(Defs.DEFAULT_CONNECTION_TIMEOUT);
+            serverSocket.setSoTimeout(Game_Visualizer.Defs.DEFAULT_CONNECTION_TIMEOUT);
             return serverSocket;
         }catch (IllegalArgumentException invalidArgumentException){
             System.err.println("Port out of bounds: 0-65535, provided "+port);

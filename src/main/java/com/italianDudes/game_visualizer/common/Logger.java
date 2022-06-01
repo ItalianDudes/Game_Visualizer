@@ -1,5 +1,6 @@
 package com.italianDudes.game_visualizer.common;
 
+import com.italianDudes.game_visualizer.Game_Visualizer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedWriter;
@@ -17,7 +18,7 @@ public final class Logger {
 
     //Attributes
     private static final int MAX_QUEUE_SIZE = 5;
-    private static final File latestLogFilePointer = new File(Defs.LOG_LATEST_FILE);
+    private static final File latestLogFilePointer = new File(Game_Visualizer.Defs.LOG_LATEST_FILE);
     private static BufferedWriter logger = null;
     private static ExecutorService queue = null;
     private final static LocalDateTime startTime = LocalDateTime.now();
@@ -56,7 +57,7 @@ public final class Logger {
         return initLogger(MAX_QUEUE_SIZE);
     }
     public static boolean initLogger(int size) throws IOException {
-        File logDirectory = new File(Defs.LOG_DIR);
+        File logDirectory = new File(Game_Visualizer.Defs.LOG_DIR);
         if(!logDirectory.exists() || !logDirectory.isDirectory()) {
             if (!logDirectory.mkdir()) {
                 System.err.println("["+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"] Can't create log directory!");
@@ -73,7 +74,7 @@ public final class Logger {
         String date = startTime.format(DateTimeFormatter.BASIC_ISO_DATE)+"_"+startTime.format(DateTimeFormatter.ISO_LOCAL_TIME);
         date = date.replaceAll(":","-");
         date = date.split("\\.")[0];
-        File newLogDestination = new File(Defs.LOG_DIR+date+".log");
+        File newLogDestination = new File(Game_Visualizer.Defs.LOG_DIR+date+".log");
         FileUtils.copyFile(latestLogFilePointer,newLogDestination);
         return true;
     }

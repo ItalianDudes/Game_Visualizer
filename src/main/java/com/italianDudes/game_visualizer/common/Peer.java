@@ -5,6 +5,8 @@
 package com.italianDudes.game_visualizer.common;
 
 
+import com.italianDudes.game_visualizer.Game_Visualizer;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetSocketAddress;
@@ -35,11 +37,11 @@ public class Peer implements Serializable {
         return credential;
     }
     public static Peer establishConnection(String domain, int port, Credential userCredential) throws IOException {
-        return establishConnection(domain,port,Defs.DEFAULT_CONNECTION_TIMEOUT,userCredential);
+        return establishConnection(domain,port, Game_Visualizer.Defs.DEFAULT_CONNECTION_TIMEOUT,userCredential);
     }
     public static Peer establishConnection(String domain, int port, int timeout, Credential userCredential) throws IOException {
         if(timeout<=0){
-            timeout=Defs.DEFAULT_CONNECTION_TIMEOUT;
+            timeout= Game_Visualizer.Defs.DEFAULT_CONNECTION_TIMEOUT;
         }
         InetSocketAddress address = new InetSocketAddress(domain,port);
         Socket connectionSocket = new Socket();
@@ -49,7 +51,7 @@ public class Peer implements Serializable {
         return new Peer(connectionSocket, userCredential);
     }
     @Override
-    public boolean equals(java.lang.Object o) {
+    public boolean equals(Object o) {
         if(!(o instanceof Peer))
             return false;
         Peer client = (Peer) o;

@@ -4,6 +4,7 @@
  */
 package com.italianDudes.game_visualizer.common;
 
+import com.italianDudes.game_visualizer.Game_Visualizer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -46,13 +47,13 @@ public final class DirectoryHandler { //TODO: Finish DirectoryHandler
         }
     }
     public static boolean createExtensionsFolder(){
-        return createDirectory(Defs.EXTENSIONS_DIR);
+        return createDirectory(Game_Visualizer.Defs.EXTENSIONS_DIR);
     }
     public static boolean createExtensionDirectory(String extensionID){
-        return createDirectory(Defs.EXTENSIONS_DIR+extensionID+"/");
+        return createDirectory(Game_Visualizer.Defs.EXTENSIONS_DIR+extensionID+"/");
     }
     public static boolean deleteExtensionDirectory(String extensionID){
-        return deleteDirectory(Defs.EXTENSIONS_DIR+extensionID+"/");
+        return deleteDirectory(Game_Visualizer.Defs.EXTENSIONS_DIR+extensionID+"/");
     }
 
 
