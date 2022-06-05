@@ -44,7 +44,8 @@ public class GVSingleton {
 
     //Here there are all the variables' instances inside the Singleton
     private String OS_ROOT;
-    private List<Property> configs;
+    private ArrayList<Property> configs;
+    private File optionsFile;
 
     synchronized public static GVSingleton getInstance() throws IOException {
         if(instance==null){
@@ -69,19 +70,19 @@ public class GVSingleton {
             //Checks the test dir
             if(DirectoryHandler.createDirectory(OS_ROOT+Game_Visualizer.Defs.TEST_DIR) || DirectoryHandler.directoryExist(new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR))){
                 Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+" either has just been created or already existed");
-                File file = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.cfg");
+                optionsFile = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.cfg");
 
-                if(!file.exists()){
-                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file not found");
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+                if(!optionsFile.exists()){
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+optionsFile.getName()+" file not found");
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(optionsFile));
 
-                    bufferedWriter.write("launcherOpenedBack= false");
+                    bufferedWriter.write("launcherOpenedBack=false");
                     bufferedWriter.flush();
 
                     bufferedWriter.close();
-                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file just created");
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+optionsFile.getName()+" file just created");
                 }else{
-                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file found");
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+optionsFile.getName()+" file found");
                 }
 
             }else{
@@ -101,14 +102,10 @@ public class GVSingleton {
     }
 
     public void configLoadingTask() throws IOException {
-        File optFile;
-
-        optFile = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt");
-
         String line;
         boolean isLauncherOpenedBack = false;
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(optFile));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(optionsFile));
 
         while((line = bufferedReader.readLine()) != null){
             if(line.contains("launcherOpenedBack")){
