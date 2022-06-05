@@ -17,6 +17,9 @@ public final class Game_Visualizer {
 
     //Methods
     public static void main(String[] args) throws IOException {
+        //The program's initialization is launched
+        GVSingleton.getInstance();
+
         Client.start();
     }
 
