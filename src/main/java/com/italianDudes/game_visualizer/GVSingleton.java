@@ -1,11 +1,15 @@
 package com.italianDudes.game_visualizer;
 
-import com.italianDudes.game_visualizer.client.GraphicsAPI.utility.Options;
 import com.italianDudes.gvedk.common.DirectoryHandler;
 import com.italianDudes.gvedk.common.Logger;
+import com.italianDudes.gvedk.common.OSUtils;
+import com.italianDudes.gvedk.common.Property;
+import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
 
 import java.io.*;
 import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This Singleton contains all the information shared by the whole launcher. It is thread-safe and, following the Singleton logic,
@@ -21,25 +25,25 @@ public class GVSingleton {
     private static GVSingleton instance;
 
     private GVSingleton() throws IOException {
-        os=System.getProperty("os.name").toLowerCase();
 
-        if(isUnix()){
-            OS_ROOT="/home/";
+        if(OSUtils.isLinux()){
+            OS_ROOT="/home/.Game_Visualizer";
+        }else if(OSUtils.isWindows()){
+            OS_ROOT="%appdata%/.Game_Visualizer";
         }else{
-            OS_ROOT="%appdata%/";
+            throw new UnsupportedOSError("This OS is not supported yet");
         }
 
         if (checkAndInitializeRoutine()){
-            op=optionsLoadingTask();
+            configLoadingTask();
         }else{
             throw new AccessDeniedException("The program couldn't install its components correctly due to a folder access issue");
         }
     }
 
     //Here there are all the variables' instances inside the Singleton
-    private String os;
-    private Options op;
     private String OS_ROOT;
+    private List<Property> configs;
 
     synchronized public static GVSingleton getInstance() throws IOException {
         if(instance==null){
@@ -57,66 +61,45 @@ public class GVSingleton {
     public boolean checkAndInitializeRoutine() throws IOException {
         boolean isSuccessful = true;
 
-        if(isWindows()){
 
-            if(DirectoryHandler.createDirectory(OS_ROOT) || DirectoryHandler.directoryExist(new File(OS_ROOT))){
+        if(DirectoryHandler.createDirectory(OS_ROOT) || DirectoryHandler.directoryExist(new File(OS_ROOT))){
+            Logger.logWithCaller(OS_ROOT+" either has just been created or already existed");
 
+            //Checks the test dir
+            if(DirectoryHandler.createDirectory(OS_ROOT+Game_Visualizer.Defs.TEST_DIR) || DirectoryHandler.directoryExist(new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR))){
+                Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+" either has just been created or already existed");
+                File file = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.cfg");
 
-                if(DirectoryHandler.createDirectory("C:\\Programmi\\Game_Visualizer\\test") || DirectoryHandler.directoryExist(new File("C:\\Programmi\\Game_Visualizer\\test"))){
-                    File file = new File("C:\\Programmi\\Game_Visualizer\\test\\opt.txt");
+                if(!file.exists()){
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file not found");
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
 
-                    if(!file.exists()){
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+                    bufferedWriter.write("launcherOpenedBack= false");
+                    bufferedWriter.flush();
 
-                        bufferedWriter.write("launcherOpenedBack: false");
-                        bufferedWriter.flush();
-
-                        bufferedWriter.close();
-                    }
-
+                    bufferedWriter.close();
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file just created");
                 }else{
-                    isSuccessful=false;
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+file.getName()+" file found");
                 }
+
             }else{
-                isSuccessful=false;
-            }
-
-        }else if(isUnix()){
-
-            if(DirectoryHandler.createDirectory("/home/.Game_Visualizer")){
-                if(DirectoryHandler.createDirectory("/home/.Game_Visualizer/test")){
-                    File file = new File("/home/.Game_Visualizer/test/opt.txt");
-
-                    if(!file.exists()){
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-
-                        bufferedWriter.write("launcherOpenedBack: false");
-                        bufferedWriter.flush();
-
-                        bufferedWriter.close();
-                    }
-
-                }else{
-                    isSuccessful=false;
-                }
-            }else{
+                Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+": the routine was unable to complete its task!");
                 isSuccessful=false;
             }
         }else{
+            Logger.logWithCaller(OS_ROOT+": the routine was unable to complete its task!");
             isSuccessful=false;
         }
 
         return isSuccessful;
     }
 
-    public Options optionsLoadingTask() throws IOException {
+    public void configLoadingTask() throws IOException {
         File optFile;
 
-        if(isWindows()){
-            optFile = new File("C:\\Programmi\\Game_Visualizer\\test\\opt.txt");
-        }else{
-            optFile = new File("/home/Game_Visualizer/test/opt.txt");
-        }
+        optFile = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt");
+
         String line;
         boolean isLauncherOpenedBack = false;
 
@@ -124,21 +107,12 @@ public class GVSingleton {
 
         while((line = bufferedReader.readLine()) != null){
             if(line.contains("launcherOpenedBack")){
-                isLauncherOpenedBack = Boolean.parseBoolean(line.split(":")[1].trim());
+                isLauncherOpenedBack = Boolean.parseBoolean(line.split("=")[1].trim());
             }
         }
 
-        Options op = new Options(isLauncherOpenedBack);
+        configs.add(new Property("launcherOpenedBack",String.valueOf(isLauncherOpenedBack)));
 
         bufferedReader.close();
-
-        return op;
-    }
-
-    public boolean isWindows(){
-        return "win".equals(os);
-    }
-    public boolean isUnix(){
-        return "unix".equals(os);
     }
 }
