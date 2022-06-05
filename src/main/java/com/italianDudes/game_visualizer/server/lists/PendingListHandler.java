@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"UnusedReturnValue","unused"})
 public final class PendingListHandler {
 
     //Attributes
