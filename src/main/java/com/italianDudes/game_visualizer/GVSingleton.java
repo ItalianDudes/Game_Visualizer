@@ -26,10 +26,11 @@ public class GVSingleton {
 
     private GVSingleton() throws IOException {
 
+        OS_ROOT = System.getProperty("user.home")+"/";
         if(OSUtils.isLinux()){
-            OS_ROOT="/home/.Game_Visualizer";
+            OS_ROOT+=".Game_Visualizer/";
         }else if(OSUtils.isWindows()){
-            OS_ROOT="%appdata%/.Game_Visualizer";
+            OS_ROOT+="AppData/Roaming/.Game_Visualizer/";
         }else{
             throw new UnsupportedOSError("This OS is not supported yet");
         }
