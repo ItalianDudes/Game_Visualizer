@@ -19,7 +19,6 @@ public class Client {
     public static void start() throws IOException {
         LauncherWindow lWindow = new LauncherWindow(900,600,0,0);
 
-        ClientInitializationTask.initialize();
         lWindow.setVisible(true);
     }
 }
