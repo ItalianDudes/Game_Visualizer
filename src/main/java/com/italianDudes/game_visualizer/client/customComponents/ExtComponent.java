@@ -18,8 +18,12 @@ public final class ExtComponent extends Panel {
     private final static int MAIN_HGAP = 10;
     private final static int BORDER_SPAN = 10;
 
+    private String extName;
+
     public ExtComponent(String extName, String extAuth, String extDate, Image img){
-        GridPanel mainPanel = new GridPanel(1,2,MAIN_HGAP,0);
+        this.extName=extName;
+
+        GridPanel mainPanel = new GridPanel(1,1,MAIN_HGAP,0);
         mainPanel.setBorder(new EmptyBorder(BORDER_SPAN,BORDER_SPAN,BORDER_SPAN,BORDER_SPAN));
         GridPanel namePanel = new GridPanel(2,1);
         GridPanel authDatePanel = new GridPanel(1,2);
@@ -31,10 +35,17 @@ public final class ExtComponent extends Panel {
         JLabel extDateL = new JLabel(extDate);
         extDateL.setToolTipText(extDate);
 
-        ImagePanel imgPanel = new ImagePanel(img,HEIGHT-BORDER_SPAN,WIDTH-(BORDER_SPAN+MAIN_HGAP),X+BORDER_SPAN,Y+BORDER_SPAN);
+        //ImagePanel imgPanel = new ImagePanel(img,HEIGHT-BORDER_SPAN,WIDTH-(BORDER_SPAN+MAIN_HGAP),X+BORDER_SPAN,Y+BORDER_SPAN);
 
-        mainPanel.add(imgPanel,namePanel);
-        namePanel.add(extNameL,authDatePanel);
         authDatePanel.add(extAuthL,extDateL);
+        namePanel.add(extNameL,authDatePanel);
+        mainPanel.add(namePanel);
+
+        this.add(mainPanel);
+    }
+
+    @Override
+    public String toString(){
+        return extName;
     }
 }

@@ -31,8 +31,6 @@ public class LauncherWindow extends JFrame implements ActionListener{
     //Panels
     private JPanel cTitleBar;       //Custom Title Bar
     private GridPanel centralOptPanel;    //Central Option Panel
-    private GridPanel accountPanel;    //Account Panel
-    private GridPanel accountTextPanel;
     private GridPanel setPanel;
     private JPanel optionPanel;     //Option Panel
     private BorderPanel supportivePanel; //Supportive Panel
@@ -45,17 +43,12 @@ public class LauncherWindow extends JFrame implements ActionListener{
     //Buttons
     private LauncherButton launchB;        //Launch Button
     private LauncherButton optB;           //Option Button #TODO: da implementare con icona
-    private LauncherButton cAccountB;      //Change Account Button
     private LauncherButton homeB;          //Home Button
     private LauncherButton extB;           //Extensions Button
     
     //Labels
-    private JLabel accountL;        //Account Label
     private JLabel setL;            //Set Label
-    
-    //Text Fields
-    private JTextField accountTF;   //Account Text Field
-    
+
     //Combo Boxes
     private JComboBox<String> setsDisplayedCB;  //Sets Displayed Combo Box
 
@@ -87,15 +80,10 @@ public class LauncherWindow extends JFrame implements ActionListener{
         setPanel = new GridPanel(1,2);
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
-
-        accountPanel = new GridPanel(2, 1);
-        accountTextPanel = new GridPanel(1,2);
         
         //Buttons initialization
         launchB = new LauncherButton("AVVIA");     //#TODO: usare la traduzione automatica
         launchB.addActionListener(this);
-        cAccountB = new LauncherButton("Change Account");
-        cAccountB.addActionListener(this);
         homeB = new LauncherButton("Home");
         homeB.addActionListener(this);
         extB = new LauncherButton("Extensions");
@@ -107,23 +95,14 @@ public class LauncherWindow extends JFrame implements ActionListener{
         sideBarPanel.add(extB);
         
         //Labels initialization
-        setL = new JLabel("Sets:");         //#TODO: usare la traduzione automatica
-        accountL = new JLabel("Account: ");
+        setL = new JLabel("Extensions:");         //#TODO: usare la traduzione automatica
         
         setPanel.add(setL);
-        accountTextPanel.add(accountL);
 
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
 
         setPanel.add(setsDisplayedCB);
-
-        //TextFields initialization
-        accountTF = new JTextField("<insert account>");
-        accountTextPanel.add(accountTF);
-
-        accountPanel.add(accountTextPanel);
-        accountPanel.add(cAccountB);
 
         //Sets background color
         getContentPane().setBackground(Color.RED);
@@ -141,7 +120,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(x,y,width,height);
         this.setResizable(false);
-        this.setTitle("Launcher Window");
+        this.setTitle("Launcher Window - Home");
         this.setUndecorated(false);                         //#  TODO: settare a true per disabilitare la titleBar di base
     }
     
