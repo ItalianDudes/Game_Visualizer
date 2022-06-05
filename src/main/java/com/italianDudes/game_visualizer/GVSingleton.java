@@ -2,6 +2,7 @@ package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.GraphicsAPI.utility.Options;
 import com.italianDudes.gvedk.common.DirectoryHandler;
+import com.italianDudes.gvedk.common.Logger;
 
 import java.io.*;
 import java.nio.file.AccessDeniedException;
@@ -20,8 +21,15 @@ public class GVSingleton {
     private static GVSingleton instance;
 
     private GVSingleton() throws IOException {
+        os=System.getProperty("os.name").toLowerCase();
+
+        if(isUnix()){
+            OS_ROOT="/home/";
+        }else{
+            OS_ROOT="%appdata%/";
+        }
+
         if (checkAndInitializeRoutine()){
-            os=System.getProperty("os.name").toLowerCase();
             op=optionsLoadingTask();
         }else{
             throw new AccessDeniedException("The program couldn't install its components correctly due to a folder access issue");
@@ -31,6 +39,7 @@ public class GVSingleton {
     //Here there are all the variables' instances inside the Singleton
     private String os;
     private Options op;
+    private String OS_ROOT;
 
     synchronized public static GVSingleton getInstance() throws IOException {
         if(instance==null){
@@ -50,8 +59,10 @@ public class GVSingleton {
 
         if(isWindows()){
 
-            if(DirectoryHandler.createDirectory("C:\\Programmi\\Game_Visualizer") || new File("C:\\Programmi\\Game_Visualizer").exists()){
-                if(DirectoryHandler.createDirectory("C:\\Programmi\\Game_Visualizer\\test") || new File("C:\\Programmi\\Game_Visualizer\\test").exists()){
+            if(DirectoryHandler.createDirectory(OS_ROOT) || DirectoryHandler.directoryExist(new File(OS_ROOT))){
+
+
+                if(DirectoryHandler.createDirectory("C:\\Programmi\\Game_Visualizer\\test") || DirectoryHandler.directoryExist(new File("C:\\Programmi\\Game_Visualizer\\test"))){
                     File file = new File("C:\\Programmi\\Game_Visualizer\\test\\opt.txt");
 
                     if(!file.exists()){
@@ -72,9 +83,9 @@ public class GVSingleton {
 
         }else if(isUnix()){
 
-            if(DirectoryHandler.createDirectory("/home/Game_Visualizer")){
-                if(DirectoryHandler.createDirectory("/home/Game_Visualizer/test")){
-                    File file = new File("/home/Game_Visualizer/test/opt.txt");
+            if(DirectoryHandler.createDirectory("/home/.Game_Visualizer")){
+                if(DirectoryHandler.createDirectory("/home/.Game_Visualizer/test")){
+                    File file = new File("/home/.Game_Visualizer/test/opt.txt");
 
                     if(!file.exists()){
                         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));

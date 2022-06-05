@@ -5,6 +5,7 @@
 package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.Client;
+import com.italianDudes.gvedk.common.Logger;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public final class Game_Visualizer {
     //Methods
     public static void main(String[] args) throws IOException {
         //The program's initialization is launched
+        Logger.init();
         GVSingleton.getInstance();
 
         Client.start();
@@ -34,11 +36,14 @@ public final class Game_Visualizer {
         //PATHS
         public static final String BUILT_IN_PATH_RESOURCES = "src/main/resources/";
         public static final String EXTENSIONS_DIR = "extensions/";
+
+        public static final String MAIN_INSTALLATION_DIR = "%appdata%/.Game_Visualizer";
         public static final String CLIENT_DIR = "client/";
         public static final String CLIENT_OPTIONS = CLIENT_DIR +"clientOptions.txt";
         public static final String PATH_APP_ICON = BUILT_IN_PATH_RESOURCES +"icon.png";
         public static final String LOG_DIR = "logs/";
         public static final String LOG_LATEST_FILE = LOG_DIR+"latest.log";
+        public static final String TEST_DIR = "test/";
 
         //General Data Communication
         public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; //Expressed in milliseconds
@@ -48,5 +53,9 @@ public final class Game_Visualizer {
         public static final char CONFIG_FORMAT_EQUAL_CHAR = '=';
         public static final String END_OF_CONFIG_FILE = "~FILE_END";
 
+    }
+
+    public static void exitOp() throws IOException {
+        Logger.close();
     }
 }
