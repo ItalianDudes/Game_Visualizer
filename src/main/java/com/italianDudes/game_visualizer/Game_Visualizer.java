@@ -37,7 +37,6 @@ public final class Game_Visualizer {
         public static final String BUILT_IN_PATH_RESOURCES = "src/main/resources/";
         public static final String EXTENSIONS_DIR = "extensions/";
 
-        public static final String MAIN_INSTALLATION_DIR = "%appdata%/.Game_Visualizer";
         public static final String CLIENT_DIR = "client/";
         public static final String CLIENT_OPTIONS = CLIENT_DIR +"clientOptions.txt";
         public static final String PATH_APP_ICON = BUILT_IN_PATH_RESOURCES +"icon.png";

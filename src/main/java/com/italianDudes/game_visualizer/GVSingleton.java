@@ -87,6 +87,10 @@ public class GVSingleton {
                 Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+": the routine was unable to complete its task!");
                 isSuccessful=false;
             }
+
+            if(isSuccessful && (!DirectoryHandler.createDirectory(OS_ROOT+Game_Visualizer.Defs.EXTENSIONS_DIR) && !DirectoryHandler.directoryExist(new File(OS_ROOT+Game_Visualizer.Defs.EXTENSIONS_DIR)))){
+                isSuccessful=false;
+            }
         }else{
             Logger.logWithCaller(OS_ROOT+": the routine was unable to complete its task!");
             isSuccessful=false;
