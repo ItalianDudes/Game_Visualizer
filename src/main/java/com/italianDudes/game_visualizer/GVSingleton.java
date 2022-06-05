@@ -24,9 +24,9 @@ public class GVSingleton {
         os=System.getProperty("os.name").toLowerCase();
 
         if(isUnix()){
-            OS_ROOT="/home/";
+            OS_ROOT="/home/.Game_Visualizer";
         }else{
-            OS_ROOT="%appdata%/";
+            OS_ROOT="%appdata%/.Game_Visualizer";
         }
 
         if (checkAndInitializeRoutine()){
@@ -57,52 +57,34 @@ public class GVSingleton {
     public boolean checkAndInitializeRoutine() throws IOException {
         boolean isSuccessful = true;
 
-        if(isWindows()){
 
-            if(DirectoryHandler.createDirectory(OS_ROOT) || DirectoryHandler.directoryExist(new File(OS_ROOT))){
+        if(DirectoryHandler.createDirectory(OS_ROOT) || DirectoryHandler.directoryExist(new File(OS_ROOT))){
+            Logger.logWithCaller(OS_ROOT+" either has just been created or already existed");
 
+            //Checks the test dir
+            if(DirectoryHandler.createDirectory(OS_ROOT+Game_Visualizer.Defs.TEST_DIR) || DirectoryHandler.directoryExist(new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR))){
+                Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+" either has just been created or already existed");
+                File file = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt");
 
-                if(DirectoryHandler.createDirectory("C:\\Programmi\\Game_Visualizer\\test") || DirectoryHandler.directoryExist(new File("C:\\Programmi\\Game_Visualizer\\test"))){
-                    File file = new File("C:\\Programmi\\Game_Visualizer\\test\\opt.txt");
+                if(!file.exists()){
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt file not found");
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
 
-                    if(!file.exists()){
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+                    bufferedWriter.write("launcherOpenedBack: false");
+                    bufferedWriter.flush();
 
-                        bufferedWriter.write("launcherOpenedBack: false");
-                        bufferedWriter.flush();
-
-                        bufferedWriter.close();
-                    }
-
+                    bufferedWriter.close();
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt file just created");
                 }else{
-                    isSuccessful=false;
+                    Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt file found");
                 }
+
             }else{
-                isSuccessful=false;
-            }
-
-        }else if(isUnix()){
-
-            if(DirectoryHandler.createDirectory("/home/.Game_Visualizer")){
-                if(DirectoryHandler.createDirectory("/home/.Game_Visualizer/test")){
-                    File file = new File("/home/.Game_Visualizer/test/opt.txt");
-
-                    if(!file.exists()){
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-
-                        bufferedWriter.write("launcherOpenedBack: false");
-                        bufferedWriter.flush();
-
-                        bufferedWriter.close();
-                    }
-
-                }else{
-                    isSuccessful=false;
-                }
-            }else{
+                Logger.logWithCaller(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+": the routine was unable to complete its task!");
                 isSuccessful=false;
             }
         }else{
+            Logger.logWithCaller(OS_ROOT+": the routine was unable to complete its task!");
             isSuccessful=false;
         }
 
@@ -112,11 +94,8 @@ public class GVSingleton {
     public Options optionsLoadingTask() throws IOException {
         File optFile;
 
-        if(isWindows()){
-            optFile = new File("C:\\Programmi\\Game_Visualizer\\test\\opt.txt");
-        }else{
-            optFile = new File("/home/Game_Visualizer/test/opt.txt");
-        }
+        optFile = new File(OS_ROOT+Game_Visualizer.Defs.TEST_DIR+"options.txt");
+
         String line;
         boolean isLauncherOpenedBack = false;
 
@@ -136,9 +115,9 @@ public class GVSingleton {
     }
 
     public boolean isWindows(){
-        return "win".equals(os);
+        return os.contains("windows");
     }
     public boolean isUnix(){
-        return "unix".equals(os);
+        return os.contains("unix");
     }
 }
