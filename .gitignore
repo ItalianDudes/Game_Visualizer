@@ -2,8 +2,8 @@
 /.gradle/
 /.idea/
 /build
-/src/main/resources/client
 /logs
 /client
+/server
 /extensions
 /test
