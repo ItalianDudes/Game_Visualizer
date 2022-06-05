@@ -1,7 +1,6 @@
 package com.italianDudes.game_visualizer.client.customComponents;
 
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.GridPanel;
-import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.ImagePanel;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.Panel;
 
 import javax.swing.*;

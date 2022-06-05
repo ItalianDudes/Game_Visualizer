@@ -1,12 +1,10 @@
 package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.GraphicsAPI.utility.Options;
-import com.italianDudes.game_visualizer.common.DirectoryHandler;
-import sun.plugin2.util.SystemUtil;
+import com.italianDudes.gvedk.common.DirectoryHandler;
 
 import java.io.*;
 import java.nio.file.AccessDeniedException;
-import java.util.Locale;
 
 /**
  * This Singleton contains all the information shared by the whole launcher. It is thread-safe and, following the Singleton logic,
