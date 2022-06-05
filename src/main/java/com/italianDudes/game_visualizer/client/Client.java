@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class Client {
     public static void start() throws IOException {
+        //Bella
         LauncherWindow lWindow = new LauncherWindow(900,600,0,0);
 
         lWindow.setVisible(true);
