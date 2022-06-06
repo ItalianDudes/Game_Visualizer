@@ -9,7 +9,6 @@ import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
 import java.io.*;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This Singleton contains all the information shared by the whole launcher. It is thread-safe and, following the Singleton logic,
@@ -105,16 +104,25 @@ public class GVSingleton {
         String line;
         boolean isLauncherOpenedBack = false;
 
+        if(configs==null){
+            Logger.logWithCaller("The settings are being loaded for the first time");
+            configs = new ArrayList<>();
+        }else{
+            Logger.logWithCaller("Updating the settings");
+        }
+
         BufferedReader bufferedReader = new BufferedReader(new FileReader(optionsFile));
 
         while((line = bufferedReader.readLine()) != null){
             if(line.contains("launcherOpenedBack")){
-                isLauncherOpenedBack = Boolean.parseBoolean(line.split("=")[1].trim());
+                isLauncherOpenedBack = Boolean.parseBoolean(line.split(Game_Visualizer.Defs.REGEX)[1].trim());
+                Logger.logWithCaller("The launcher will remain opened in background: "+isLauncherOpenedBack);
             }
         }
 
         configs.add(new Property("launcherOpenedBack",String.valueOf(isLauncherOpenedBack)));
 
         bufferedReader.close();
+        Logger.logWithCaller("ConfigLoadingTask finished its routine");
     }
 }

@@ -23,6 +23,19 @@ public final class Game_Visualizer {
         GVSingleton.getInstance();
 
         Client.start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    exitOp();
+                    System.out.println("Logger shut down");
+                } catch (IOException e) {
+                    System.out.println("The program was unable to shut down the Logger");
+                    throw new RuntimeException(e);
+                }
+            }
+        }));
     }
 
     //Class Constants
@@ -51,6 +64,9 @@ public final class Game_Visualizer {
         public static final char CONFIG_FORMAT_COMMENT_LINE = '#';
         public static final char CONFIG_FORMAT_EQUAL_CHAR = '=';
         public static final String END_OF_CONFIG_FILE = "~FILE_END";
+
+        //General Purpose Constants
+        public static final String REGEX = "=";
 
     }
 
