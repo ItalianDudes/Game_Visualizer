@@ -20,7 +20,9 @@ public final class Game_Visualizer {
     public static void main(String[] args) throws IOException {
         //The program's initialization is launched
         Logger.init();
+        Logger.log("Logger correctly initialized");
         GVSingleton.getInstance();
+        Logger.log("Program data initialization successfully loaded and initialized");
 
         Client.start();
 
@@ -67,6 +69,14 @@ public final class Game_Visualizer {
 
         //General Purpose Constants
         public static final String REGEX = "=";
+        public static final int ZIP_ID = 0x504b0304;
+        public static final String MANIFEST_ENTRY = "META-INF/MANIFEST.MF";
+
+        //Manifest entries consts checks
+        public static final String MANIFEST_MAIN_ENTRY = "Main";
+        public static final String MANIFEST_AUTH = "Author";
+        public static final String MANIFEST_EXT_NAME = "Extension Name";
+        public static final String MANIFEST_DATE = "Date";
 
     }
 

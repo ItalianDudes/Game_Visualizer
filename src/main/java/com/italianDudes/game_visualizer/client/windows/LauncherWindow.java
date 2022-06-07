@@ -4,6 +4,7 @@
  */
 package com.italianDudes.game_visualizer.client.windows;
 
+import com.italianDudes.game_visualizer.GVSingleton;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButton;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.BorderPanel;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.GridPanel;
