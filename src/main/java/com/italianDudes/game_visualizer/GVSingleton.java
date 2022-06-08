@@ -5,10 +5,8 @@ import com.italianDudes.gvedk.common.Logger;
 import com.italianDudes.gvedk.common.OSUtils;
 import com.italianDudes.gvedk.common.Property;
 import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
-import sun.rmi.runtime.Log;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -61,6 +59,8 @@ public class GVSingleton {
     private ArrayList<Property> configs;
     private File optionsFile;
     private ArrayList<JarFile> exts;
+
+    private ArrayList<Attributes> extsAttributes;
     private boolean isExtRunning;
 
     synchronized public static GVSingleton getInstance() throws IOException {
@@ -153,6 +153,7 @@ public class GVSingleton {
             if(exts==null){
                 Logger.logWithCaller("First time loading the Extensions");
                 exts = new ArrayList<>();
+                extsAttributes = new ArrayList<>();
             }else{
                 Logger.logWithCaller("Extensions already loaded: must be updated");
             }
@@ -162,13 +163,18 @@ public class GVSingleton {
 
                     if(isExt(tempFile)){
                         exts.add(tempFile);
+                        extsAttributes.add(tempFile.getManifest().getMainAttributes());
                         Logger.logWithCaller("Extension added");
                     }
 
                     tempFile.close();
                 }
             }
-            Logger.logWithCaller("Available Extensions fully loaded and updated");
+            if(exts.isEmpty()){
+                Logger.logWithCaller("No extension found");
+            }else{
+                Logger.logWithCaller("Available Extensions fully loaded and updated");
+            }
         }else{
             Logger.logWithCaller("No Extension found in the "+OS_ROOT+Game_Visualizer.Defs.EXTENSIONS_DIR+" folder");
             Logger.logWithCaller("No Extension was loaded");
@@ -182,6 +188,9 @@ public class GVSingleton {
 
     public void setExtRunning(boolean isExtRunning) {
         this.isExtRunning = isExtRunning;
+    }
+    public ArrayList<Attributes> getExtsAttributes() {
+        return extsAttributes;
     }
 
     public boolean isJarFile(File file) throws IOException {
@@ -226,24 +235,28 @@ public class GVSingleton {
 
         if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null)){
             Logger.logWithCaller("The Manifest contains the Main Entry and that entry is not null");
-            if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_EXT_NAME) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME)!=null)){
+            if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null)){
                 Logger.logWithCaller("The Manifest contains the Extension's Name Entry and that entry is not null");
-                if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_AUTH) && (mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH)!=null)){
+                if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) && (mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null)){
                     Logger.logWithCaller("The Manifest contains the Author and that entry is not null");
-                    if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_DATE) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE)!=null)){
+                    if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)!=null)){
                         Logger.logWithCaller("The Manifest contains the Date Entry and that entry is not null");
                         Logger.logWithCaller("The JarFile has been validated: it's an Extension");
                         return true;
                     }else{
+                        Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)!=null ? mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY) : "null"));
                         Logger.logWithCaller("The Manifest either doesn't contain the Date Entry or that entry is null");
                     }
                 }else{
+                    Logger.logWithCaller("Debugging: mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)= "+(mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null ? mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) : "null"));
                     Logger.logWithCaller("The Manifest either doesn't contain the Author or that entry is null");
                 }
             }else{
+                Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null ? mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) : "null"));
                 Logger.logWithCaller("The Manifest either doesn't contain the Extension's Name Entry or that entry is null");
             }
         }else{
+            Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null?mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY):"null"));
             Logger.logWithCaller("The Manifest either doesn't contain the Main Entry or that entry is null");
         }
         Logger.logWithCaller("The JarFile has been validated: it's not an Extension");

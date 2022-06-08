@@ -73,10 +73,10 @@ public final class Game_Visualizer {
         public static final String MANIFEST_ENTRY = "META-INF/MANIFEST.MF";
 
         //Manifest entries consts checks
-        public static final String MANIFEST_MAIN_ENTRY = "Main";
-        public static final String MANIFEST_AUTH = "Author";
-        public static final String MANIFEST_EXT_NAME = "Extension Name";
-        public static final String MANIFEST_DATE = "Date";
+        public static final String MANIFEST_MAIN_ENTRY = "Main-Class";
+        public static final String MANIFEST_AUTH_ENTRY = "Author";
+        public static final String MANIFEST_EXT_NAME_ENTRY = "Extension-Name";
+        public static final String MANIFEST_DATE_ENTRY = "Date";
 
     }
 

@@ -1,9 +1,10 @@
 package com.italianDudes.game_visualizer.client.windows;
 
+import com.italianDudes.game_visualizer.GVSingleton;
+import com.italianDudes.game_visualizer.Game_Visualizer;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButton;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.BorderPanel;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.GridPanel;
-import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.Panel;
 import com.italianDudes.game_visualizer.client.customComponents.ExtComponent;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ExtWindow extends JFrame implements ActionListener {
 
@@ -37,7 +39,7 @@ public class ExtWindow extends JFrame implements ActionListener {
     private JLabel authL;           //Author's Label
     private JLabel dateL;           //Date's Label
 
-    public ExtWindow(int width, int height, int x, int y){
+    public ExtWindow(int width, int height, int x, int y) throws IOException {
         ExtComponent extComponent;
 
         this.width=width;
@@ -67,18 +69,17 @@ public class ExtWindow extends JFrame implements ActionListener {
 
         extList.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
-        extComponent = new ExtComponent("Prova1","Autore1","1/1/1900",null);
-        extComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-        //extList.add(extComponent);
-        ExtComponent l1 = new ExtComponent("Test1","Autore1","1/1/1",null);
-        ExtComponent l2 = new ExtComponent("Test2","Autore2","2/2/2",null);
-
-        defaultListModel.addElement(l1);
-        defaultListModel.addElement(l2);
+        for(int i=0;i<GVSingleton.getInstance().getExtsAttributes().size();i++){
+            ExtComponent tempExtC = new ExtComponent(GVSingleton.getInstance().getExtsAttributes().get(i).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY),
+                                                        GVSingleton.getInstance().getExtsAttributes().get(i).getValue(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY),
+                                                        GVSingleton.getInstance().getExtsAttributes().get(i).getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY),
+                                                        null);
+            defaultListModel.addElement(tempExtC);
+        }
 
         extList.setModel(defaultListModel);
         //Labels' initialization
-        extNumL = new JLabel("2");
+        extNumL = new JLabel(String.valueOf(GVSingleton.getInstance().getExtsAttributes().size()));
 
         //Components manipulation step
         extInfoPanel.add(extNumL);
