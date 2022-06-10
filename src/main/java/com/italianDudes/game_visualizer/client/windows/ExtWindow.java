@@ -40,7 +40,6 @@ public class ExtWindow extends JFrame implements ActionListener {
     private JLabel dateL;           //Date's Label
 
     public ExtWindow(int width, int height, int x, int y) throws IOException {
-        ExtComponent extComponent;
 
         this.width=width;
         this.height=height;
@@ -66,8 +65,6 @@ public class ExtWindow extends JFrame implements ActionListener {
         //List initialization
         extList = new JList<>();
         DefaultListModel<ExtComponent> defaultListModel = new DefaultListModel<>();
-
-        extList.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
         for(int i=0;i<GVSingleton.getInstance().getExtsAttributes().size();i++){
             ExtComponent tempExtC = new ExtComponent(GVSingleton.getInstance().getExtsAttributes().get(i).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY),

@@ -232,30 +232,30 @@ public class GVSingleton {
         Logger.logWithCaller("Manifest's attributes: "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)+" "+mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY));
 
 
-        if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null)){
+        if(ManifestReader.containsKey(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY) && (ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null)){
             Logger.logWithCaller("The Manifest contains the Main Entry and that entry is not null");
-            if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null)){
+            if(ManifestReader.containsKey(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) && (ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null)){
                 Logger.logWithCaller("The Manifest contains the Extension's Name Entry and that entry is not null");
-                if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) && (mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null)){
+                if(ManifestReader.containsKey(mfAt,Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) && (ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null)){
                     Logger.logWithCaller("The Manifest contains the Author and that entry is not null");
-                    if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)!=null)){
+                    if(ManifestReader.containsKey(mfAt,Game_Visualizer.Defs.MANIFEST_DATE_ENTRY) && (ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)!=null)){
                         Logger.logWithCaller("The Manifest contains the Date Entry and that entry is not null");
                         Logger.logWithCaller("The JarFile has been validated: it's an Extension");
                         return true;
                     }else{
-                        Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)!=null ? mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY) : "null"));
+                        Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY)= "+(ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null ? ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) : "null"));
                         Logger.logWithCaller("The Manifest either doesn't contain the Date Entry or that entry is null");
                     }
                 }else{
-                    Logger.logWithCaller("Debugging: mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)= "+(mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null ? mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) : "null"));
+                    Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)= "+(ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)!=null ? ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY) : "null"));
                     Logger.logWithCaller("The Manifest either doesn't contain the Author or that entry is null");
                 }
             }else{
-                Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null ? mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) : "null"));
+                Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)= "+(ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)!=null ? ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY) : "null"));
                 Logger.logWithCaller("The Manifest either doesn't contain the Extension's Name Entry or that entry is null");
             }
         }else{
-            Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)= "+(mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null?mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY):"null"));
+            Logger.logWithCaller("Debugging: mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)= "+(ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null?ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY):"null"));
             Logger.logWithCaller("The Manifest either doesn't contain the Main Entry or that entry is null");
         }
         Logger.logWithCaller("The JarFile has been validated: it's not an Extension");

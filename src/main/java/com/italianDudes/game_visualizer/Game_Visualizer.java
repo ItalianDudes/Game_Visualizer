@@ -22,7 +22,7 @@ public final class Game_Visualizer {
         Logger.init();
         Logger.log("Logger correctly initialized");
         GVSingleton.getInstance();
-        Logger.log("Program data initialization successfully loaded and initialized");
+        Logger.log("Program data successfully loaded and initialized");
 
         Client.start();
 
