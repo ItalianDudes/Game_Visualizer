@@ -1,9 +1,6 @@
 package com.italianDudes.game_visualizer;
 
-import com.italianDudes.gvedk.common.DirectoryHandler;
-import com.italianDudes.gvedk.common.Logger;
-import com.italianDudes.gvedk.common.OSUtils;
-import com.italianDudes.gvedk.common.Property;
+import com.italianDudes.gvedk.common.*;
 import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
 
 import java.io.*;
@@ -230,8 +227,10 @@ public class GVSingleton {
     }
 
     public boolean isExt(JarFile file) throws IOException {
-        Manifest mf = file.getManifest();
-        Attributes mfAt = mf.getMainAttributes();
+        Attributes mfAt = ManifestReader.readJarManifest(file);
+
+        Logger.logWithCaller("Manifest's attributes: "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)+" "+mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY));
+
 
         if(mfAt.containsKey(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY) && (mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null)){
             Logger.logWithCaller("The Manifest contains the Main Entry and that entry is not null");
