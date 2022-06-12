@@ -14,11 +14,11 @@ public class ExtDescriptorTask {
 
     private final ExtLaunchTask extLaunchTask;
 
-    public ExtDescriptorTask(String extInternalName, int extInternalId) throws IOException {
+    public ExtDescriptorTask(String extInternalName, int extInternalId, String extPathToMain) throws IOException {
         this.extInternalName=extInternalName;
         this.extInternalId=extInternalId;
         this.extLaunchTask=new ExtLaunchTask(Game_Visualizer.Defs.EXTENSIONS_DIR+extInternalName,
-                GVSingleton.getInstance().getExtsAttributes().get(extInternalId).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY));
+                extPathToMain);
     }
 
     public String getExtInternalName(){

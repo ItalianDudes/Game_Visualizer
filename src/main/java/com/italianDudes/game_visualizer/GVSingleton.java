@@ -1,7 +1,6 @@
 package com.italianDudes.game_visualizer;
 
 import com.italianDudes.game_visualizer.client.utility.ExtDescriptorTask;
-import com.italianDudes.game_visualizer.client.utility.ExtLaunchTask;
 import com.italianDudes.gvedk.common.*;
 import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
 
@@ -45,10 +44,10 @@ public class GVSingleton {
             throw new AccessDeniedException("The program couldn't install its components correctly due to a folder access issue");
         }
 
-        extLoadingTask();
-        Logger.logWithCaller("The ExtLoadingTask has just finished its routine");
         executingTasks=0;
         taskDescriptors=new ArrayList<>();
+        extLoadingTask();
+        Logger.logWithCaller("The ExtLoadingTask has just finished its routine");
         Logger.logWithCaller("No Extension has yet began to run");
     }
 
@@ -175,8 +174,8 @@ public class GVSingleton {
             }else{
                 for(int internalId=extsAttributes.size()-1;internalId>=0;internalId--){
                     taskDescriptors.add(new ExtDescriptorTask(
-                            extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).replaceAll(" ","_"),
-                            internalId));
+                            extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).trim().replaceAll(" ","_"),
+                            internalId,extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)));
                 }
 
                 Logger.logWithCaller("Available Extensions fully loaded and updated");
