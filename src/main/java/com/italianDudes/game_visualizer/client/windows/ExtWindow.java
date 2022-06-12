@@ -9,12 +9,14 @@ import com.italianDudes.game_visualizer.client.customComponents.ExtComponent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class ExtWindow extends JFrame implements ActionListener {
+public class ExtWindow extends JFrame implements ActionListener, ListSelectionListener {
 
     //Frame Dimensions bounds
     private int width;
@@ -75,11 +77,16 @@ public class ExtWindow extends JFrame implements ActionListener {
         }
 
         extList.setModel(defaultListModel);
+        extList.addListSelectionListener(this);
         //Labels' initialization
-        extNumL = new JLabel(String.valueOf(GVSingleton.getInstance().getExtsAttributes().size()));
+        extNumL = new JLabel("Estensioni: "+GVSingleton.getInstance().getExtsAttributes().size());
+        authL = new JLabel("");
+        dateL = new JLabel("");
 
         //Components manipulation step
         extInfoPanel.add(extNumL);
+        extInfoPanel.add(authL);
+        extInfoPanel.add(dateL);
 
         centerPanel.setNorth(extInfoPanel);
         centerPanel.setCenter(extList);
@@ -106,8 +113,23 @@ public class ExtWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == homeB){
             this.dispose();
-            LauncherWindow launcherWindow = new LauncherWindow(width, height, getX(), getY());
+            LauncherWindow launcherWindow = null;
+            try {
+                launcherWindow = new LauncherWindow(width, height, getX(), getY());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             launcherWindow.setVisible(true);
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if(e.getSource() == extList){
+            authL.setText("Author: "+extList.getSelectedValue().getExtAuth());
+            authL.setToolTipText(extList.getSelectedValue().getExtAuth());
+            dateL.setText("Date: "+extList.getSelectedValue().getExtDate());
+            dateL.setToolTipText(extList.getSelectedValue().getExtDate());
         }
     }
 }

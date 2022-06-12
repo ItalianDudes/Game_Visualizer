@@ -1,5 +1,7 @@
 package com.italianDudes.game_visualizer;
 
+import com.italianDudes.game_visualizer.client.utility.ExtDescriptorTask;
+import com.italianDudes.game_visualizer.client.utility.ExtLaunchTask;
 import com.italianDudes.gvedk.common.*;
 import com.italianDudes.gvedk.common.error.os.UnsupportedOSError;
 
@@ -11,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 import java.util.zip.ZipFile;
 
 /**
@@ -46,8 +47,8 @@ public class GVSingleton {
 
         extLoadingTask();
         Logger.logWithCaller("The ExtLoadingTask has just finished its routine");
-
-        isExtRunning=false;
+        executingTasks=0;
+        taskDescriptors=new ArrayList<>();
         Logger.logWithCaller("No Extension has yet began to run");
     }
 
@@ -56,9 +57,10 @@ public class GVSingleton {
     private ArrayList<Property> configs;
     private File optionsFile;
     private ArrayList<JarFile> exts;
+    private ArrayList<ExtDescriptorTask> taskDescriptors;
 
     private ArrayList<Attributes> extsAttributes;
-    private boolean isExtRunning;
+    private int executingTasks;
 
     synchronized public static GVSingleton getInstance() throws IOException {
         if(instance==null){
@@ -161,6 +163,7 @@ public class GVSingleton {
                     if(isExt(tempFile)){
                         exts.add(tempFile);
                         extsAttributes.add(tempFile.getManifest().getMainAttributes());
+
                         Logger.logWithCaller("Extension added");
                     }
 
@@ -170,21 +173,18 @@ public class GVSingleton {
             if(exts.isEmpty()){
                 Logger.logWithCaller("No extension found");
             }else{
+                for(int internalId=extsAttributes.size()-1;internalId>=0;internalId--){
+                    taskDescriptors.add(new ExtDescriptorTask(
+                            extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).replaceAll(" ","_"),
+                            internalId));
+                }
+
                 Logger.logWithCaller("Available Extensions fully loaded and updated");
             }
         }else{
             Logger.logWithCaller("No Extension found in the "+OS_ROOT+Game_Visualizer.Defs.EXTENSIONS_DIR+" folder");
             Logger.logWithCaller("No Extension was loaded");
         }
-    }
-
-    public boolean isExtRunning() {
-        Logger.logWithCaller("Is an Extension already running: "+isExtRunning);
-        return isExtRunning;
-    }
-
-    public void setExtRunning(boolean isExtRunning) {
-        this.isExtRunning = isExtRunning;
     }
     public ArrayList<Attributes> getExtsAttributes() {
         return extsAttributes;
@@ -260,5 +260,37 @@ public class GVSingleton {
         }
         Logger.logWithCaller("The JarFile has been validated: it's not an Extension");
         return false;
+    }
+
+    public void killExts(){
+        if(!taskDescriptors.isEmpty()){
+            for (ExtDescriptorTask taskDescriptor : taskDescriptors) {
+                taskDescriptor.requestToBeKilled();
+            }
+            taskDescriptors=new ArrayList<>();
+        }
+    }
+
+    public ArrayList<ExtDescriptorTask> getTaskDescriptors() {
+        return taskDescriptors;
+    }
+    public int getExecutingTasks(){
+        return executingTasks;
+    }
+    public void incExecutingTasks(){
+        if(executingTasks<taskDescriptors.size()){
+            executingTasks++;
+            Logger.logWithCaller("Number of executing tasks increased to: "+executingTasks);
+        }else{
+            Logger.logWithCaller("All tasks are already running!");
+        }
+    }
+    public void decExecutingTasks(){
+        if(executingTasks>0){
+            executingTasks--;
+            Logger.logWithCaller("Number of executing tasks decreased to: "+executingTasks);
+        }else{
+            Logger.logWithCaller("Not a single task is running!");
+        }
     }
 }

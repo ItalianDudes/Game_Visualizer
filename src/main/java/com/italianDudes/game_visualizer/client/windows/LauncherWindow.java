@@ -5,9 +5,11 @@
 package com.italianDudes.game_visualizer.client.windows;
 
 import com.italianDudes.game_visualizer.GVSingleton;
+import com.italianDudes.game_visualizer.Game_Visualizer;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.buttons.LauncherButton;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.BorderPanel;
 import com.italianDudes.game_visualizer.client.GraphicsAPI.panels.GridPanel;
+import com.italianDudes.game_visualizer.client.utility.ExtLaunchTask;
 import com.italianDudes.gvedk.common.InfoFlags;
 import com.italianDudes.gvedk.common.Logger;
 
@@ -58,7 +60,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
     //Combo Boxes
     private JComboBox<String> setsDisplayedCB;  //Sets Displayed Combo Box
 
-    public LauncherWindow(int width, int height, int x, int y){
+    public LauncherWindow(int width, int height, int x, int y) throws IOException {
         this.width=width;
         this.height=height;
         this.x=x;
@@ -82,13 +84,14 @@ public class LauncherWindow extends JFrame implements ActionListener{
         optionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
         centralOptPanel = new GridPanel(2,1);
-        centralOptPanel.setBorder(new EmptyBorder(250,200,250,200));
+        centralOptPanel.setBorder(new EmptyBorder(225,200,225,200));
         setPanel = new GridPanel(1,2);
         supportivePanel.setCenter(centralOptPanel);
         supportivePanel.setSouth(optionPanel);
         
         //Buttons initialization
         launchB = new LauncherButton("AVVIA");     //#TODO: usare la traduzione automatica
+        launchB.setRadius(0);
         launchB.addActionListener(this);
         homeB = new LauncherButton("Home");
         homeB.addActionListener(this);
@@ -101,12 +104,17 @@ public class LauncherWindow extends JFrame implements ActionListener{
         sideBarPanel.add(extB);
         
         //Labels initialization
-        setL = new JLabel("Extensions:");         //#TODO: usare la traduzione automatica
+        setL = new JLabel("Extension:");         //#TODO: usare la traduzione automatica
         
         setPanel.add(setL);
 
         //Combo Box initialization
         setsDisplayedCB = new JComboBox<>();
+
+        for(int i=0;i<GVSingleton.getInstance().getExtsAttributes().size();i++){
+            setsDisplayedCB.addItem(GVSingleton.getInstance().getExtsAttributes().get(i).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY));
+        }
+        setsDisplayedCB.setSelectedIndex(0);
 
         setPanel.add(setsDisplayedCB);
 
@@ -137,7 +145,7 @@ public class LauncherWindow extends JFrame implements ActionListener{
             Logger.logWithCaller("Extension button clicked");
 
             this.dispose();
-            ExtWindow extWindow = null;
+            ExtWindow extWindow;
             try {
                 Logger.logWithCaller("Switching to the Extension Window");
                 extWindow = new ExtWindow(width, height, getX(), getY());
@@ -147,6 +155,14 @@ public class LauncherWindow extends JFrame implements ActionListener{
                 throw new RuntimeException(ex);
             }
             extWindow.setVisible(true);
+        }else if(e.getSource() == launchB){
+            Logger.logWithCaller("Launch button clicked");
+
+            try {
+                GVSingleton.getInstance().getTaskDescriptors().get(setsDisplayedCB.getSelectedIndex()).launchTask();
+            } catch (IOException | InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         Logger.logWithCaller("Home button clicked");
     }

@@ -18,9 +18,13 @@ public final class ExtComponent extends Panel {
     private final static int BORDER_SPAN = 10;
 
     private String extName;
+    private String extAuth;
+    private String extDate;
 
     public ExtComponent(String extName, String extAuth, String extDate, Image img){
         this.extName=extName;
+        this.extAuth=extAuth;
+        this.extDate=extDate;
 
         GridPanel mainPanel = new GridPanel(1,1,MAIN_HGAP,0);
         mainPanel.setBorder(new EmptyBorder(BORDER_SPAN,BORDER_SPAN,BORDER_SPAN,BORDER_SPAN));
@@ -46,5 +50,12 @@ public final class ExtComponent extends Panel {
     @Override
     public String toString(){
         return extName;
+    }
+
+    public String getExtAuth(){
+        return extAuth;
+    }
+    public String getExtDate(){
+        return extDate;
     }
 }
