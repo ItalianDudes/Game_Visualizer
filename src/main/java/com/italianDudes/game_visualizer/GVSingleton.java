@@ -261,7 +261,9 @@ public class GVSingleton {
         Logger.logWithCaller("The JarFile has been validated: it's not an Extension");
         return false;
     }
-
+    public String getOSRoot(){
+        return OS_ROOT;
+    }
     public void killExts(){
         if(!taskDescriptors.isEmpty()){
             for (ExtDescriptorTask taskDescriptor : taskDescriptors) {
