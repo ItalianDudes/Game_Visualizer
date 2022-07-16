@@ -55,6 +55,7 @@ public class GVSingleton {
     private String OS_ROOT;
     private ArrayList<Property> configs;
     private File optionsFile;
+
     private ArrayList<JarFile> exts;
     private ArrayList<ExtDescriptorTask> taskDescriptors;
 
@@ -291,5 +292,9 @@ public class GVSingleton {
         }else{
             Logger.logWithCaller("Not a single task is running!");
         }
+    }
+
+    public ArrayList<JarFile> getExts() {
+        return exts;
     }
 }

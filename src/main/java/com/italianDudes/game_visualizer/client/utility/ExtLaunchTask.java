@@ -11,10 +11,12 @@ import java.lang.reflect.Method;
 public class ExtLaunchTask extends Thread{
     private final String extPathToDir;
     private final String extPathToMain;
+    private final String jarName;
 
-    public ExtLaunchTask(String extPathToDir, String extPathToMain){
+    public ExtLaunchTask(String extPathToDir, String extPathToMain, String jarName){
         this.extPathToDir=extPathToDir;        //Path to the extension's directory
         this.extPathToMain=extPathToMain.replaceAll("\\.","/");      //Path inside the Extension's Jar to its start() method
+        this.jarName=jarName;
 
         Logger.logWithCaller("Path to dir: "+this.extPathToDir + "; Path to Main: "+this.extPathToMain);
     }

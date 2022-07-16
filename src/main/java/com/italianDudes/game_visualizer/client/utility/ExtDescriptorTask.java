@@ -17,7 +17,7 @@ public class ExtDescriptorTask {
     public ExtDescriptorTask(String extInternalName, int extInternalId, String extPathToMain) throws IOException {
         this.extInternalName=extInternalName;
         this.extInternalId=extInternalId;
-        this.extLaunchTask=new ExtLaunchTask(extInternalName,extPathToMain);
+        this.extLaunchTask=new ExtLaunchTask(extInternalName,extPathToMain,GVSingleton.getInstance().getExts().get(extInternalId).getName());
     }
 
     public String getExtInternalName(){
