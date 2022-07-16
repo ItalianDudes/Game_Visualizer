@@ -14,10 +14,10 @@ public class ExtDescriptorTask {
 
     private final ExtLaunchTask extLaunchTask;
 
-    public ExtDescriptorTask(String extInternalName, int extInternalId, String extPathToMain) throws IOException {
+    public ExtDescriptorTask(String extInternalName, int extInternalId, String extPathToMain, String OS_ROOT) throws IOException {
         this.extInternalName=extInternalName;
         this.extInternalId=extInternalId;
-        this.extLaunchTask=new ExtLaunchTask(extInternalName,extPathToMain,GVSingleton.getInstance().getExts().get(extInternalId).getName());
+        this.extLaunchTask=new ExtLaunchTask(extInternalName,extPathToMain,GVSingleton.getInstance().getExts().get(extInternalId).getName(), OS_ROOT);
     }
 
     public String getExtInternalName(){

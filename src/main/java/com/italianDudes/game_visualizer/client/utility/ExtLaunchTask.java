@@ -15,11 +15,13 @@ public class ExtLaunchTask extends Thread{
     private final String extPathToDir;
     private final String extPathToMain;
     private final String jarName;
+    private final String OS_ROOT;
 
-    public ExtLaunchTask(String extPathToDir, String extPathToMain, String jarName){
+    public ExtLaunchTask(String extPathToDir, String extPathToMain, String jarName, String OS_ROOT){
         this.extPathToDir=extPathToDir;        //Path to the extension's directory
         this.extPathToMain=extPathToMain.replaceAll("\\.","/");      //Path inside the Extension's Jar to its start() method
         this.jarName=jarName;
+        this.OS_ROOT=OS_ROOT;
 
         Logger.logWithCaller("Path to dir: "+this.extPathToDir + "; Path to Main: "+this.extPathToMain);
     }
@@ -37,13 +39,10 @@ public class ExtLaunchTask extends Thread{
         */
 
         try {
-            classPointer = Class.forName(GVSingleton.getInstance().getOSRoot()+Game_Visualizer.Defs.EXTENSIONS_DIR+jarName+"/"+extPathToMain);
+            classPointer = Class.forName(OS_ROOT+Game_Visualizer.Defs.EXTENSIONS_DIR+jarName+"/"+extPathToMain);
             Logger.logWithCaller("Extension's Main class found");
         } catch (ClassNotFoundException e) {
             Logger.logWithCaller("Extension's Main class not found");
-            throw new RuntimeException(e);
-        } catch (IOException e){
-            Logger.logWithCaller("DEBUG ERROR");
             throw new RuntimeException(e);
         }
 
