@@ -176,7 +176,7 @@ public class GVSingleton {
                 for(int i=0;i<exts.size();i++){
                     taskDescriptors.add(new ExtDescriptorTask(
                             extsAttributes.get(i).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).trim().replaceAll(" ","_"),
-                            i,extsAttributes.get(i).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY), OS_ROOT));
+                            i,extsAttributes.get(i).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY), exts.get(i).getName(), OS_ROOT));
                 }
 
                 Logger.logWithCaller("Available Extensions fully loaded and updated");
