@@ -172,10 +172,10 @@ public class GVSingleton {
             if(exts.isEmpty()){
                 Logger.logWithCaller("No extension found");
             }else{
-                for(int internalId=extsAttributes.size()-1;internalId>=0;internalId--){
+                for(int i=0;i<exts.size();i++){
                     taskDescriptors.add(new ExtDescriptorTask(
-                            extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).trim().replaceAll(" ","_"),
-                            internalId,extsAttributes.get(internalId).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)));
+                            extsAttributes.get(i).getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY).trim().replaceAll(" ","_"),
+                            i,extsAttributes.get(i).getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)));
                 }
 
                 Logger.logWithCaller("Available Extensions fully loaded and updated");
@@ -228,7 +228,7 @@ public class GVSingleton {
     public boolean isExt(JarFile file) throws IOException {
         Attributes mfAt = ManifestReader.readJarManifest(file);
 
-        Logger.logWithCaller("Manifest's attributes: "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)+" "+mfAt.get(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY));
+        Logger.logWithCaller("Manifest's attributes: "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_EXT_NAME_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_AUTH_ENTRY)+" "+mfAt.getValue(Game_Visualizer.Defs.MANIFEST_DATE_ENTRY));
 
 
         if(ManifestReader.containsKey(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY) && (ManifestReader.getValue(mfAt,Game_Visualizer.Defs.MANIFEST_MAIN_ENTRY)!=null)){

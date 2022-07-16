@@ -161,9 +161,11 @@ public class LauncherWindow extends JFrame implements ActionListener{
             try {
                 GVSingleton.getInstance().getTaskDescriptors().get(setsDisplayedCB.getSelectedIndex()).launchTask();
             } catch (IOException | InterruptedException ex) {
+                Logger.logWithCaller("Unable to launch the Extension");
                 throw new RuntimeException(ex);
             }
+        }else{
+            Logger.logWithCaller("Home button clicked");
         }
-        Logger.logWithCaller("Home button clicked");
     }
 }

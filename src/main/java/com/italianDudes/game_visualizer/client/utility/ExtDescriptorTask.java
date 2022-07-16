@@ -17,8 +17,7 @@ public class ExtDescriptorTask {
     public ExtDescriptorTask(String extInternalName, int extInternalId, String extPathToMain) throws IOException {
         this.extInternalName=extInternalName;
         this.extInternalId=extInternalId;
-        this.extLaunchTask=new ExtLaunchTask(Game_Visualizer.Defs.EXTENSIONS_DIR+extInternalName,
-                extPathToMain);
+        this.extLaunchTask=new ExtLaunchTask(extInternalName,extPathToMain);
     }
 
     public String getExtInternalName(){
@@ -36,7 +35,7 @@ public class ExtDescriptorTask {
                 extLaunchTask.start();
                 isExecuting=true;
                 GVSingleton.getInstance().incExecutingTasks();
-                Logger.logWithCaller("The Extensions has been launched");
+                Logger.logWithCaller("The Extension has been launched");
 
                 extLaunchTask.join();
                 isExecuting=false;
